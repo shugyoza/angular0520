@@ -1,48 +1,6 @@
-<style>
-    *,
-    *::before,
-    *::after {
-      margin: 0;
-      padding: 0;
-      box-sizing: inherit;
-    }
-    main {
-      width: 60%;
-      margin: auto;
-      height: 70%;
-      display: grid;
-    }
-    nav {
-      background-color: pink;
-      display: flex;
-    }
-    div {
-      background-color: lightgray;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-    ul {
-      list-style: none;
-    }
-    .div__main {
-      flex-direction: row;
-    }
-    fieldset {
-      display: flex;
-      flex-direction: column;
-    }
-    fieldset > div {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-    }
-  </style>
-
-  <main>
-    <nav>
-      <a>Like List</a>
+<main>
+    <nav class="nav-top">
+      <a id="like-list">Like List</a>
     </nav>
 
     <div class="div__main">
@@ -51,32 +9,32 @@
 
         <img class="avatar" src="#" />
 
-        <div>
+        <div class="row">
           <label for="username">Username</label>
           <input type="text" id="username" />
         </div>
 
-        <div>
+        <div class="row">
           <label for="password">Password</label>
           <input type="password" id="password" />
         </div>
 
-        <div>
+        <div class="row">
           <label for="gender">Gender</label>
           <input type="text" id="gender" />
         </div>
 
-        <div>
+        <div class="row">
           <label for="age">Age</label>
           <input type="text" id="age" />
         </div>
 
-        <div>
+        <div class="row">
           <label for="phone">Phone</label>
           <input type="text" id="phone" />
         </div>
 
-        <div>
+        <div class="row">
           <img src="#" />
           <span>0</span>
           <img src="#" />
@@ -87,10 +45,10 @@
 
     </div>
 
-    <nav>
-      <button>My Profile</button>
-      <button>News Feed</button>
-      <button>Settings</button>
+    <nav class="nav-bottom">
+      <button class="btn" id="btn-profile">My Profile</button>
+      <button class="btn" id="btn-feed">News Feed</button>
+      <button class="btn" id="btn-setting">Settings</button>
     </nav>
 
   </main>
