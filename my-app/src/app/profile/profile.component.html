@@ -1,0 +1,96 @@
+<style>
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: inherit;
+    }
+    main {
+      width: 60%;
+      margin: auto;
+      height: 70%;
+      display: grid;
+    }
+    nav {
+      background-color: pink;
+      display: flex;
+    }
+    div {
+      background-color: lightgray;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    ul {
+      list-style: none;
+    }
+    .div__main {
+      flex-direction: row;
+    }
+    fieldset {
+      display: flex;
+      flex-direction: column;
+    }
+    fieldset > div {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  </style>
+
+  <main>
+    <nav>
+      <a>Like List</a>
+    </nav>
+
+    <div class="div__main">
+
+      <fieldset>
+
+        <img class="avatar" src="#" />
+
+        <div>
+          <label for="username">Username</label>
+          <input type="text" id="username" />
+        </div>
+
+        <div>
+          <label for="password">Password</label>
+          <input type="password" id="password" />
+        </div>
+
+        <div>
+          <label for="gender">Gender</label>
+          <input type="text" id="gender" />
+        </div>
+
+        <div>
+          <label for="age">Age</label>
+          <input type="text" id="age" />
+        </div>
+
+        <div>
+          <label for="phone">Phone</label>
+          <input type="text" id="phone" />
+        </div>
+
+        <div>
+          <img src="#" />
+          <span>0</span>
+          <img src="#" />
+          <span>0</span>
+        </div>
+
+      </fieldset>
+
+    </div>
+
+    <nav>
+      <button>My Profile</button>
+      <button>News Feed</button>
+      <button>Settings</button>
+    </nav>
+
+  </main>

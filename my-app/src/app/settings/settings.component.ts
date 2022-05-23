@@ -9,8 +9,6 @@ export class SettingsComponent implements OnInit {
 
   constructor() { }
 
-  title = 'Bruh';
-
   ngOnInit(): void {
   }
 

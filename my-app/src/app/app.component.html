@@ -10,57 +10,80 @@
     width: 60%;
     margin: auto;
     height: 70%;
+    display: grid;
   }
   nav {
     background-color: pink;
+    display: flex;
   }
   div {
     background-color: lightgray;
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
   }
   ul {
     list-style: none;
   }
-
+  .div__main {
+    flex-direction: row;
+  }
+  fieldset {
+    display: flex;
+    flex-direction: column;
+  }
+  fieldset > div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
 </style>
 
 <main>
   <nav>
-    <button>Admin</button>
+    <a>Like List</a>
   </nav>
 
-  <div>
+  <div class="div__main">
 
-    <nav>
-      <ul>
-        <li>
-          User Tag 1
-          <button>Delete</button>
-        </li>
-        <li>
-          User Tag 2
-          <button>Delete</button>
-        </li>
-        <li>
-          User Tag 3
-          <button>Delete</button>
-        </li>
-      </ul>
+    <fieldset>
 
-      <button>Add User Button</button>
-    </nav>
+      <img class="avatar" src="#" />
 
-    <div>
-        <ul>User Detailed Info Panel
-          <li>UserName: Name</li>
-          <li>Password: password</li>
-          <li>UserEmail: Email</li>
-          <li>Gender: gender</li>
-          <li>Age: age</li>
-        </ul>
+      <div>
+        <label for="username">Username</label>
+        <input type="text" id="username" />
+      </div>
 
-    </div>
+      <div>
+        <label for="password">Password</label>
+        <input type="password" id="password" />
+      </div>
+
+      <div>
+        <label for="gender">Gender</label>
+        <input type="text" id="gender" />
+      </div>
+
+      <div>
+        <label for="age">Age</label>
+        <input type="text" id="age" />
+      </div>
+
+      <div>
+        <label for="phone">Phone</label>
+        <input type="text" id="phone" />
+      </div>
+
+      <div>
+        <img src="#" />
+        <span>0</span>
+        <img src="#" />
+        <span>0</span>
+      </div>
+
+    </fieldset>
 
   </div>
 
