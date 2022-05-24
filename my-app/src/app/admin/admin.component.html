@@ -6,31 +6,25 @@
   <div class="div__main">
 
     <nav class="nav-left">
-      <ul>
+      <ul *ngFor="let user of users">
         <li>
-          <p>User Tag 1</p>
-          <button class="btn btn-delete">Delete</button>
-        </li>
-        <li>
-          User Tag 2
-          <button class="btn btn-delete">Delete</button>
-        </li>
-        <li>
-          User Tag 3
-          <button class="btn btn-delete">Delete</button>
+          <button (click)="onDisplayUser(user.id)" id={{user.id}} class="btn">{{ user.name }}</button>
+          <button (click)="onDeleteUser(user)" type="button" class="btn btn-delete">Delete</button>
         </li>
       </ul>
 
-      <button class="btn btn-addUser">Add User Button</button>
+      <button (click)="onAddUser()" type="button" class="btn btn-addUser">Add User Button</button>
     </nav>
 
-    <div class="detail">
-        <ul>User Detailed Info Panel
-          <li>UserName: Name</li>
-          <li>Password: password</li>
-          <li>UserEmail: Email</li>
-          <li>Gender: gender</li>
-          <li>Age: age</li>
+    <div *ngIf="user" class="detail">
+        <ul><h2>User Details</h2>
+          <li>Name: {{ user.name }}</li>
+          <li>UserName: {{ user.userName }}</li>
+          <li>Password: {{ user.password }}</li>
+          <li>UserEmail: {{ user.userEmail }}</li>
+          <li>Role: {{ user.userRole }}</li>
+          <li>Gender: {{ user.gender }}</li>
+          <li>Age: {{ user.age }}</li>
         </ul>
 
     </div>
