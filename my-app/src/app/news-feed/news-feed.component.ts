@@ -7,6 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NewsFeedComponent implements OnInit {
 
+  newsFeedPath = '/feed';
+  settingsPath = '/settings';
+  profilePath = '/profile';
+
   constructor() { }
 
   ngOnInit(): void {

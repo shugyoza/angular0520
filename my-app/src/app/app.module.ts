@@ -1,57 +1,56 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 // angular material
 import { MatSliderModule } from '@angular/material/slider';
 // import { MatToolbarModule} from '@angular/material/toolbar';
 
-// import RouterModule for redirecting to customs path;
-import { RouterModule } from '@angular/router';
-
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { SettingsComponent } from './settings/settings.component';
-import { AdminComponent } from './admin/admin.component';
-import { NewsFeedComponent } from './news-feed/news-feed.component';
-import { ProfileComponent } from './profile/profile.component';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
+import { LoginModule } from './login/login.module';
+import { RegisterModule } from './register/register.module';
+import { SettingsModule } from './settings/settings.module';
+import { ProfileModule } from './profile/profile.module';
+import { AdminModule } from './admin/admin.module';
+import { NewsFeedModule } from './news-feed/news-feed.module';
 
-import { SharedModule } from './shared/shared.module';
+import { AppComponent } from './app.component';
+
 
 @NgModule({
   declarations: [
-    AppComponent,
-    SettingsComponent,
-    AdminComponent,
-    NewsFeedComponent,
-    ProfileComponent,
-    LoginComponent,
-    RegisterComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
+
+    LoginModule,
+    RegisterModule,
+    SettingsModule,
+    ProfileModule,
+    AdminModule,
+    NewsFeedModule,
 
     // Angular Material
     MatSliderModule,
-    // MatToolbarModule,
 
-    // SharedModule,
 
-    // apply the RouterModule here to connect the path and corresponding component
-    RouterModule.forRoot([
-
-    ])
+    // This module must be at the bottom because it contains wild card ** for page not found
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
 
-/* replaced with sub router
+/*
+    // apply the RouterModule here to connect the path and corresponding component
+    RouterModule.forRoot([
+    ])
+
+
+replaced with sub router
     // apply the RouterModule here to connect the path and corresponding component
     RouterModule.forRoot([
       { path: '', component: AdminComponent },

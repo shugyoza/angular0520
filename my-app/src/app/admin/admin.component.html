@@ -1,6 +1,11 @@
 <main>
   <nav class="nav-top">
-    <button class="btn" id="btn-admin">Admin</button>
+    <button
+      [routerLink]="adminPath"
+      class="btn"
+      id="btn-admin" >
+      Admin
+    </button>
   </nav>
 
   <div class="div__main">
@@ -31,10 +36,29 @@
 
   </div>
 
+
   <nav class="nav-bottom">
-    <button class="btn" id="btn-profile">My Profile</button>
-    <button class="btn" id="btn-feed">News Feed</button>
-    <button class="btn" id="btn-setting">Settings</button>
+
+    <button
+      [routerLink]="profilePath"
+      class="btn"
+      id="btn-profile" >
+      My Profile
+    </button>
+
+    <button
+      [routerLink]="newsFeedPath"
+      class="btn"
+      id="btn-feed" >
+      News Feed
+    </button>
+
+    <button
+      [routerLink]="settingsPath"
+      class="btn"
+      id="btn-setting" >
+      Settings
+    </button>
   </nav>
 
 </main>

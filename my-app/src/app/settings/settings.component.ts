@@ -6,8 +6,13 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.sass']
 })
+
 export class SettingsComponent implements OnInit {
 
+  newsFeedPath = '/feed';
+  profilePath = '/profile';
+  settingsPath = '/settings';
+  
   constructor() { }
 
   ngOnInit(): void {

@@ -12,6 +12,10 @@ export class ProfileComponent implements OnInit {
 
   user: User | undefined;
 
+  settingsPath = '/settings';
+  newsFeedPath = '/feed';
+  profilePath = '/profile';
+
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {

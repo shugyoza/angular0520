@@ -5,7 +5,11 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.sass']
 })
+
 export class LoginComponent implements OnInit {
+
+  newsFeedPath = '/feed';
+  registerPath = '/register';
 
   constructor() { }
 

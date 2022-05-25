@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { AdminComponent } from './admin.component';
+import { NewsFeedComponent } from './news-feed.component';
 
 const routes: Routes = [
     {
-        path: 'admin',
-        component: AdminComponent,
-        children: []
+        path: 'feed',
+        component: NewsFeedComponent,
+        children: [ ]
     }
 ];
 
@@ -16,4 +16,4 @@ const routes: Routes = [
     exports: [RouterModule]
 })
 
-export class AdminRoutingModule { };
+export class NewsFeedRoutingModule { }

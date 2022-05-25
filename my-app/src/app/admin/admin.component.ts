@@ -12,6 +12,11 @@ export class AdminComponent implements OnInit {
   users = users;
   user: User | undefined;
 
+  newsFeedPath = '/feed';
+  settingsPath = '/settings';
+  profilePath = '/profile';
+  adminPath = '/admin';
+
   onDeleteUser(user: User) {
     window.alert(`User to delete: ${user.name}`)
   }

@@ -16,10 +16,19 @@
           <input type="password" id="password" />
         </div>
 
-        <button class="btn" id="btn-login">Login</button>
+        <button
+          [routerLink]="newsFeedPath"
+          class="btn"
+          id="btn-login">
+          Login
+        </button>
 
         <div class="row">
-          <a href="#" target="_blank">No Account? Register Now!</a>
+          <a
+            [routerLink]="registerPath"
+            target="_blank">
+            No Account? Register Now!
+          </a>
         </div>
 
         <div class="row">
