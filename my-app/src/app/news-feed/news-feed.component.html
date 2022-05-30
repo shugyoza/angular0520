@@ -1,34 +1,5 @@
 <style>
-    /* *,
-    *::before,
-    *::after {
-      margin: 0;
-      padding: 0;
-      box-sizing: inherit;
-    }
-    main {
-      width: 60%;
-      margin: auto;
-      height: 70%;
-      display: grid;
-    }
-    nav {
-      background-color: pink;
-      display: flex;
-    }
-    div {
-      background-color: lightgray;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-    ul {
-      list-style: none;
-    }
-    .div__main {
-      flex-direction: row;
-    } */
+
   </style>
 
   <main>
@@ -40,30 +11,10 @@
 
       <div>
 
-        <div>
-          <input type="text" placeholder="Post News Feed Form" />
-          <button>Post</button>
-        </div>
+        <app-post-feed></app-post-feed>
 
-        <ul>
-          <li>
-            <p>
-              Story 1
-            </p>
-            <p>
-              <input type="checkbox" />
-              <label>Like</label>
-            </p>
-          </li>
-          <li>
-            <p>
-              Story 2
-            </p>
-            <p>
-              <input type="checkbox" />
-              <label>Like</label>
-            </p>
-          </li>
+        <ul *ngFor="let story of stories">
+          <app-story [story]="story"></app-story>
         </ul>
 
       </div>

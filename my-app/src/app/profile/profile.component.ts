@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { User, users } from '../users';
+import { User, dummyUser } from '../shared/models/User';
 
 @Component({
   selector: 'app-profile',
@@ -10,7 +10,8 @@ import { User, users } from '../users';
 })
 export class ProfileComponent implements OnInit {
 
-  user: User | undefined;
+  user: User = dummyUser;
+  users: User[] = [];
 
   settingsPath = '/settings';
   newsFeedPath = '/feed';
@@ -19,12 +20,17 @@ export class ProfileComponent implements OnInit {
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+
     // First get the user id from the current route
     const routeParams = this.route.snapshot.paramMap;
     const id = Number(routeParams.get('id'));
 
     // Find the user that correspond with the id provided in the route
-    this.user = users.find((user: User) => user.id === id);
+    // this.user = this.users.find((user: User) => user._id === id);
+
+    const doc = this.users.find((doc: User) => doc._id === id);
+    if (doc) this.user = doc;
+
   }
 
 }

@@ -1,0 +1,19 @@
+<li *ngIf="story">
+
+    <p>
+      Image: {{story.content.image.slice(0, 10)}}
+      Text: {{story.content.text.slice(0, 10)}}
+      Video: {{story.content.video.slice(0, 10)}}
+    </p>
+    <p>
+      <input type="checkbox" />
+      <label>Like</label>
+    </p>
+
+    <ul *ngIf="story.comment.length">
+        <span *ngFor="let comment of story.comment">
+          <app-comment [comment]="comment"></app-comment>
+        </span>
+    </ul>
+    <app-post-comment></app-post-comment>
+</li>

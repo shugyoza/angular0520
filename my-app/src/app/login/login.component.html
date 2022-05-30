@@ -16,10 +16,9 @@
           <input type="password" id="password" />
         </div>
 
-        <button
-          [routerLink]="newsFeedPath"
-          class="btn"
-          id="btn-login">
+        <button mat-raised-button
+          (click)="onLogin()"
+          class="btn btn-login btn-green">
           Login
         </button>
 

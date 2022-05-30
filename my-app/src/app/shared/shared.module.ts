@@ -1,14 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { MatToolbarModule } from '@angular/material/toolbar';
-
+import { AngularMaterialModule } from '../material.module';
 
 import { NavTopComponent } from './nav-top/nav-top.component';
 import { NavBottomComponent } from './nav-bottom/nav-bottom.component';
 import { ErrPageNotFoundComponent } from './err-page-not-found/err-page-not-found.component';
-
-
 
 @NgModule({
   declarations: [
@@ -18,7 +15,11 @@ import { ErrPageNotFoundComponent } from './err-page-not-found/err-page-not-foun
   ],
   imports: [
     CommonModule,
-    MatToolbarModule
+    AngularMaterialModule
+  ],
+  exports: [
+    NavTopComponent,
+    NavBottomComponent
   ]
 })
 export class SharedModule { }

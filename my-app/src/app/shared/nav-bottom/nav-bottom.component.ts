@@ -7,9 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavBottomComponent implements OnInit {
 
+  newsFeedPath = '/feed';
+  settingsPath = '/settings';
+  profilePath = '/profile';
+  adminPath = '/admin';
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
 }
+
+//     <app-nav-bottom></app-nav-bottom>

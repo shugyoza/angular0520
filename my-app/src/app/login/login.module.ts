@@ -1,17 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { AngularMaterialModule } from '../material.module';
 import { LoginRoutingModule } from './login-routing.module';
+import { SharedModule} from '../shared/shared.module'
 
 import { LoginComponent } from './login.component';
 
 @NgModule({
     declarations: [
-        LoginComponent
+        LoginComponent,
     ],
     imports: [
         CommonModule,
-        LoginRoutingModule
+        LoginRoutingModule,
+        SharedModule,
+        AngularMaterialModule
     ]
 })
 
