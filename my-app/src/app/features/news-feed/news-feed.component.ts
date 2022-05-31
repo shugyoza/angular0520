@@ -9,10 +9,10 @@ import { path } from '../../shared/variables';
   templateUrl: './news-feed.component.html',
   styleUrls: ['./news-feed.component.sass']
 })
-export class NewsFeedComponent implements OnInit, OnChanges, OnDestroy {
+export class NewsFeedComponent implements OnInit, OnDestroy {
 
-  stories: any[] = [];
-  story: any = dummyNews;
+  stories: News[] = [];
+  story: News = dummyNews;
 
   subscriptions: any[] = [];
 
@@ -35,15 +35,11 @@ export class NewsFeedComponent implements OnInit, OnChanges, OnDestroy {
       () => {
         console.log('Request completed');
       }
-    )
+    );
     this.subscriptions.push(subs);
   }
 
   ngOnInit(): void {
-    this.displayNews();
-  }
-
-  ngOnChanges(): void {
     this.displayNews();
   }
 

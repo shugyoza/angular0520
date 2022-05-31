@@ -10,22 +10,23 @@ export class AuthenticationService {
   constructor(private http: HttpClient) { }
 
   checkID(userID: string) {
-    return this.http.get<any>(`http://localhost:4231/api/register/getuserbyid/${userID}`)
+    return this.http.get<any>(`http://localhost:4231/api/register/getuserbyid/${ userID }`)
   }
 
   checkUserEmail(userEmail: string) {
-    return this.http.get<any>(`http://localhost:4231/api/register/checkexistbyemail/${userEmail}`)
+    return this.http.get<any>(`http://localhost:4231/api/register/checkexistbyemail/${ userEmail }`)
   }
 
   checkUserName(userName: string) {
-    return this.http.get<any>(`http://localhost:4231/api/register/checkexistbyusername/${userName}`)
+    return this.http.get<any>(`http://localhost:4231/api/register/checkexistbyusername/${ userName }`)
   }
 
   getUser(userEmail: string, password: string) {
-    return this.http.post<any>('http://localhost:4231/api/login', {userEmail, password});
+    return this.http.post<any>('http://localhost:4231/api/login', { userEmail, password });
   }
 
   registerNewUser(userEmail: string, userName: string, password: string) {
-    return this.http.post<any>('http://localhost:4231/api/register/createnewaccount', {userEmail, userName, password})
+    return this.http.post<any>('http://localhost:4231/api/register/createnewaccount', { userEmail, userName, password })
   }
+
 }

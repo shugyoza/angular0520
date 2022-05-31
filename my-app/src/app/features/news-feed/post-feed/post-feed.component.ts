@@ -9,6 +9,7 @@ import { StoriesService } from '../../../core/services/stories/stories.service';
 })
 export class PostFeedComponent implements OnInit {
 
+  inputField: string = '';
   story: News = dummyNews;
   subscriptions: any[] = [];
 
@@ -44,7 +45,6 @@ export class PostFeedComponent implements OnInit {
     )
     // keep track of subscriptions to unsubscribe onDestroy
     this.subscriptions.push(subscription);
-    this.ngOnDestroy();
   }
 
   ngOnInit(): void {
