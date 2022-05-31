@@ -5,8 +5,7 @@ import { User, dummyUser } from '../../shared/models/User';
 import { AuthenticationService } from '../../core/services/authentication/authentication.service';
 import { UserService } from '../../core/services/user/user.service';
 
-import { path }
- from '../../shared/variables';
+import { path } from '../../shared/variables';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',

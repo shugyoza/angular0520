@@ -25,4 +25,7 @@ export class AuthenticationService {
     return this.http.post<any>('http://localhost:4231/api/login', {userEmail, password});
   }
 
+  registerNewUser(userEmail: string, userName: string, password: string) {
+    return this.http.post<any>('http://localhost:4231/api/register/createnewaccount', {userEmail, userName, password})
+  }
 }
