@@ -2,5 +2,7 @@ export const path = {
     feed: '/feed',
     settings: '/settings',
     profile: '/profile',
-    admin: '/admin'
+    admin: '/admin',
+    login: '/login',
+    register: '/register'
   }

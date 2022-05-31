@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Comment, dummyComment } from '../../../shared/models/News';
+import { Comment, dummyComment } from '../../../../shared/models/News';
 
 @Component({
   selector: 'app-comment',
@@ -8,7 +8,7 @@ import { Comment, dummyComment } from '../../../shared/models/News';
 })
 export class CommentComponent implements OnInit {
 
-  @Input() comment: Comment = dummyComment;
+  @Input() comments: Comment[] = [];
 
   constructor() { }
 

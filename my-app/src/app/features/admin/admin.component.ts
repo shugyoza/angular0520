@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { User, dummyUser } from '../shared/models/User';
-import { UserService } from '../shared/services/user.service';
-import { path } from '../shared/variables';
+import { User, dummyUser } from '../../shared/models/User';
+import { UserService } from '../../core/services/user/user.service';
+import { path } from '../../shared/variables';
 
 @Component({
   selector: 'app-admin',

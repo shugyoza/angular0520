@@ -1,26 +1,26 @@
 // src/app/shared/models/News.ts
 
 export interface Content {
-    _id: any;
+    // _id: any;
     image: string;
     video: string;
     text: string;
 };
 
 export interface Comment {
-    _id: any;
+    // _id: any;
     publisherName: string,
     publishedTime: Date,
     content: Content
 }
 
 export interface LikedId {
-    _id: any;
+    // _id: any;
     userId: string
 }
 
 export interface News {
-    _id: any;
+    // _id: any;
     publisherName: string;
     publishedTime: Date;
     content: Content;
@@ -29,7 +29,7 @@ export interface News {
 };
 
 export const dummyComment = {
-    _id: 1,
+    // _id: 1,
     publisherName: 'publisherName',
     publishedTime: new Date(),
     content: {
@@ -41,11 +41,25 @@ export const dummyComment = {
 }
 
 export const dummyNews = {
-    _id: 1,
+    // _id: 1,
     publisherName: 'publisherName',
     publishedTime: new Date(),
     content: {
-        _id: 1,
+        // _id: 1,
+        video: 'video.mp4',
+        text: 'blah blah',
+        image: 'image.png'
+    },
+    comment: [],
+    likedIdList: []
+}
+
+export const dummyPostNews = {
+    // _id: 1,
+    publisherName: 'publisherName',
+    publishedTime: new Date(),
+    content: {
+        // _id: 1,
         video: 'video.mp4',
         text: 'blah blah',
         image: 'image.png'
@@ -57,7 +71,7 @@ export const dummyNews = {
 // mock data
 export const newsList = [
     {
-        _id: 1,
+        // _id: 1,
         publisherName: 'lBrown',
         publishedTime: new Date(),
         content: {
@@ -65,7 +79,7 @@ export const newsList = [
         }
     },
     {
-        _id: 2,
+        // _id: 2,
         publisherName: 'jchang',
         publishedTime: new Date(),
         content: {
@@ -75,7 +89,7 @@ export const newsList = [
         likedIdList: []
     },
     {
-        _id: 3,
+        // _id: 3,
         publisherName: 'rwhite',
         publishedTime: new Date(),
         content: {

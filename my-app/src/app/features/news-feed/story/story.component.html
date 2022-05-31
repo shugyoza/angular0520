@@ -1,0 +1,21 @@
+<div *ngIf="story.content">
+      On {{story.publishedTime}} {{story.publisherName}} wrote:
+      <br>
+      Image: {{story.content.image ? story.content.image : "- No image -"}}
+      <br>
+      Text: {{story.content.text ? story.content.text : "- No text -"}}
+      <br>
+      Video: {{story.content.video ? story.content.video : "- No video -"}}
+      <br>
+
+    <p>
+      <input type="checkbox" />
+      <label>Like</label>
+    </p>
+
+    <div *ngIf="story.comment?.length" class="list-comments">
+        <app-comment [comments]="story.comment"></app-comment>
+    </div>
+
+    <app-post-comment></app-post-comment>
+</div>

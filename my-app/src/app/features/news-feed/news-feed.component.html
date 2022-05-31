@@ -13,9 +13,11 @@
 
         <app-post-feed></app-post-feed>
 
-        <ul *ngFor="let story of stories">
-          <app-story [story]="story"></app-story>
-        </ul>
+        <div *ngIf="stories?.length" class="list-stories">
+          <div *ngFor="let story of stories" >
+            <app-story [story]="story"></app-story>
+          </div>
+        </div>
 
       </div>
 

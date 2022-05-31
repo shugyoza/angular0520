@@ -4,11 +4,12 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class StoriesService {
+export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  getNews() {
-    return this.http.get('http://localhost:4231/api/news/')
+  getUsers() {
+    return this.http.get<any>('http://localhost:4231/api/users/getallusers');
   }
+
 }

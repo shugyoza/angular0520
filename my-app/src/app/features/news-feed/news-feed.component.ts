@@ -1,18 +1,18 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnChanges, OnDestroy } from '@angular/core';
 
-import { News, dummyNews } from '../shared/models/News';
-import { StoriesService } from '../shared/services/stories.service';
-import { path } from '../shared/variables';
+import { News, dummyNews } from '../../shared/models/News';
+import { StoriesService } from '../../core/services/stories/stories.service';
+import { path } from '../../shared/variables';
 
 @Component({
   selector: 'app-news-feed',
   templateUrl: './news-feed.component.html',
   styleUrls: ['./news-feed.component.sass']
 })
-export class NewsFeedComponent implements OnInit, OnDestroy {
+export class NewsFeedComponent implements OnInit, OnChanges, OnDestroy {
 
-  stories: News[] = [];
-  story: News = dummyNews;
+  stories: any[] = [];
+  story: any = dummyNews;
 
   subscriptions: any[] = [];
 
@@ -40,6 +40,10 @@ export class NewsFeedComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.displayNews();
+  }
+
+  ngOnChanges(): void {
     this.displayNews();
   }
 

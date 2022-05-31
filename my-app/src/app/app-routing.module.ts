@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './features/login/login.component';
 import { ErrPageNotFoundComponent } from './shared/err-page-not-found/err-page-not-found.component';
 
 const routes: Routes = [

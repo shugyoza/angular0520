@@ -1,13 +1,19 @@
-<li>
-    <p>
+<li *ngFor="let comment of comments">
+  <div>
+    <p >
       publisherName: {{comment.publisherName}}
+      <br>
       publishedTime: {{comment.publishedTime}}
+      <br>
       content image: {{comment.content.image}}
+      <br>
       content video: {{comment.content.video}}
+      <br>
       content text: {{comment.content.text}}
     </p>
     <p>
       <input type="checkbox" />
       <label>Like</label>
     </p>
+  </div>
 </li>
