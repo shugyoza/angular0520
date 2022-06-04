@@ -50,3 +50,18 @@ export const stories = [
         likedIdList: []
     }
 ]
+
+
+/*
+{
+        publisherName: "TODO_grab_from_params_id_or_authentication",
+        publishedTime: new Date(),
+        content: {
+          image: '',
+          text: this.postForm.value.news,
+          video: ''
+        },
+        comment: [],
+        likedIdList: []
+      };
+*/

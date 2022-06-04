@@ -1,24 +1,71 @@
-  <main>
+  <main id="login-container">
 
-    <div class="div__main">
+    <form
+      id="login-form"
+      class="div__main"
+      [formGroup]="loginForm"
+      (ngSubmit)="onLogin()" >
 
-      <fieldset>
+      <fieldset
+        id="fieldset-{{form.fields.email.id}}" >
 
-        <img class="logo" src="#" />
+        <img
+          class="logo"
+          width=200
+          src="https://d7hftxdivxxvm.cloudfront.net/?resize_to=fit&width=800&height=800&quality=80&src=https%3A%2F%2Fd32dm0rphc51dk.cloudfront.net%2F_DogUIUeT1Ke3UvxGQbPGA%2Fnormalized.jpg"
+          alt="logo" />
 
-        <div class="row">
-          <label for="username" id="label-username">Username</label>
-          <input #username type="text" id="username" />
-        </div>
 
-        <div class="row">
-          <label for="password" id="label-username">Password</label>
-          <input #password type="password" id="password" />
-        </div>
+        <mat-form-field
+          class="row"
+          appearance="fill" >
 
-        <button mat-raised-button
-          (click)="onLogin(username.value, password.value)"
-          class="btn btn-login btn-green">
+          <mat-label
+            id="label-{{form.fields.email.id}}" >
+            {{form.fields.email.label}}
+          </mat-label>
+
+          <input
+            matInput
+            id="input-{{form.fields.email.id}}"
+            type={{form.fields.email.type}}
+            name={{form.fields.email.id}}
+            placeholder={{form.fields.email.placeholder}}
+            formControlName={{form.fields.email.id}} />
+
+          <mat-hint>Please type your email</mat-hint>
+
+        </mat-form-field>
+
+
+        <mat-form-field
+          class="row"
+          appearance="fill">
+
+          <mat-label
+            id="label-{{form.fields.password.id}}" >
+            {{form.fields.password.label}}
+          </mat-label>
+
+          <input
+            matInput
+            id="input-{{form.fields.password.id}}"
+            type={{form.fields.password.type}}
+            name={{form.fields.password.id}}
+            placeholder={{form.fields.password.placeholder}}
+            formControlName={{form.fields.password.id}} />
+
+          <mat-hint>Please type your password</mat-hint>
+
+        </mat-form-field>
+
+
+        <button
+          mat-raised-button
+          color="primary"
+          class="btn btn-login btn-green"
+          type="submit"
+          [disabled]="!loginForm.valid">
           Login
         </button>
 
@@ -38,6 +85,6 @@
 
       </fieldset>
 
-    </div>
+    </form>
 
   </main>

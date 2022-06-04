@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { MatButtonModule } from '@angular/material/button';
 import { NewsFeedRoutingModule } from './news-feed-routing.module';
 import { NewsFeedComponent } from './news-feed.component';
 import { PostFeedComponent } from './post-feed/post-feed.component';
@@ -18,7 +19,8 @@ import { CommentComponent } from './story/comment/comment.component';
     ],
     imports: [
         CommonModule,
-        NewsFeedRoutingModule
+        NewsFeedRoutingModule,
+        MatButtonModule
     ]
 })
 

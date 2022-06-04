@@ -7,7 +7,7 @@ import { StoriesService } from '../../../core/services/stories/stories.service';
   templateUrl: './post-feed.component.html',
   styleUrls: ['./post-feed.component.sass']
 })
-export class PostFeedComponent implements OnInit {
+export class PostFeedComponent implements OnInit, OnDestroy {
 
   inputField: string = '';
   story: News = dummyNews;
@@ -47,8 +47,7 @@ export class PostFeedComponent implements OnInit {
     this.subscriptions.push(subscription);
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   ngOnDestroy(): void {
     // when the component get's destroyed, unsubscribe all the subscriptions

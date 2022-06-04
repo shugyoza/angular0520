@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-// import { Router } from '@angular/router';
+import { Router } from '@angular/router';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+
 
 import { User, dummyUser } from '../../shared/models/User';
 import { AuthenticationService } from '../../core/services/authentication/authentication.service';
 import { UserService } from '../../core/services/user/user.service';
 
 import { path } from '../../shared/variables';
+import { form } from 'src/app/shared/utils/form';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -13,27 +17,30 @@ import { path } from '../../shared/variables';
 })
 
 export class LoginComponent implements OnInit {
-
-  // instantiate the service
-  // // but instantiating this authenticateService in every module is bad practice!
-  // // so use dependency injection to inject the instance instantiated in app module!
-  // authenticateService = new AuthenticationService()
-
-  // if we use this User interface withoud _id, we cannot grab the _id value from the doc. from backend
-  // // a good solution would be to define User interface for inserting to backend differ from User interface
-  // // for grabbing data from backend.
-  user: any | undefined; // User = dummyUser;
-
+  form = form;
+  user: User = dummyUser;
   subscriptions: any[] = []; // array to store Observables
-
   newsFeedPath = path.feed;
   registerPath = path.register;
 
+  loginForm = new FormGroup({
+    email: new FormControl(
+      form.fields.email.defaultValue,
+      [ Validators.required,
+        Validators.email ]
+      ),
+    password: new FormControl(
+      form.fields.password.defaultValue,
+      [ Validators.required ]
+      )
+  })
+
   constructor(
-    // private router: Router,
+    private router: Router,
     private authentication: AuthenticationService,
     private userService: UserService // we might not need this. last mission is to redirect to the corresponding page.
     ) { }
+
 
   ngOnInit(): void {
   }
@@ -67,86 +74,38 @@ export class LoginComponent implements OnInit {
         else alert('Invalid password! TODO: Create directive to show the error on this login page.');
       },
       // defined callback if we got an error response
-      (error: any) => {
-        console.log('Request to get User failed with error.');
-        alert('Request to get User failed with error.');
-      },
+      (error: any) => console.log('Request to get User failed with error.'),
       // define optional callback as needed
-      () => {
-        console.log('Request to get User completed.');
-      }
+      () => console.log('Request to get User completed.')
+    );
+
+    // push this observable to the array. We'll unsubscribe onDestroy.
+    this.subscriptions.push(subscription);
+  }
+
+  // Method to login with the given userEmail and password
+  onLogin() {
+
+    const userEmail = this.loginForm.value.email;
+    const password = this.loginForm.value.password;
+
+    const subscription = this.authentication.checkUserEmail(userEmail).subscribe(
+      // callback for success response
+      (response: boolean) => {
+        console.log('Response for userEmail check received.', response);
+        if (response === false) console.log('Invalid userEmail! TODO: Create directive to show the error on this login page.');
+        else this.onGetUser(userEmail, password);
+      },
+      // callback for thrown error
+      (error: any) => console.log('Request for userEmail check failed with error.'),
+      // optional callback
+      () => console.log('Request for userEmail check completed.')
 
     );
     // push this observable to the array. We'll unsubscribe onDestroy.
     this.subscriptions.push(subscription);
   }
 
-  // Method to login with the given userEmail and password
-  onLogin(userEmail: string, password: string) {
-
-    const subscription = this.authentication.checkUserEmail(userEmail).subscribe(
-
-      (response: boolean) => {
-        console.log('Response for userEmail check received.', response);
-        if (response === false) alert('Invalid userEmail! TODO: Create directive to show the error on this login page.');
-        else this.onGetUser(userEmail, password);
-      },
-
-      (error: any) => {
-        console.log('Request for userEmail check failed with error.');
-        alert('Request for userEmail check failed with error.');
-      },
-
-      () => {
-        console.log('Request for userEmail check completed.');
-      }
-
-    );
-    this.subscriptions.push(subscription);
-  }
-
 }
 
-/* REFACTORED. See above.
-  onLogin(userEmail: string, password: string) {
 
-    this.subscriptions.push(
-
-      this.authentication.checkUserEmail(userEmail).subscribe(
-
-        (response1: boolean) => {
-          console.log('Response for userEmail check received.', response1);
-          if (response1 === false) alert('Invalid userEmail!');
-
-          else {
-
-            this.subscriptions.push(
-              this.authentication.getUser(userEmail, password).subscribe(
-                (response2: any) => {
-                  console.log('Response to get User received.', response2);
-                  if (response2) this.user = response2;
-                  else alert('Invalid password!');
-                },
-                (error: any) => {
-                  console.log('Request to get User failed with error.');
-                  alert('Request to get User failed with error.');
-                },
-                () => {
-                  console.log('Request to get User completed.');
-                }
-              )
-            )
-          }
-        },
-
-        (error: any) => {
-          console.log('Request for userEmail check failed with error.');
-          alert('Request for userEmail check failed with error.');
-        },
-
-        () => {
-          console.log('Request for userEmail check completed.');
-        }
-      )
-    )
-  } */
