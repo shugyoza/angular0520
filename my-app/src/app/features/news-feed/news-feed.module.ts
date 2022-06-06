@@ -13,6 +13,8 @@ import { StoryComponent } from './story/story.component';
 import { PostCommentComponent } from './story/post-comment/post-comment.component';
 import { CommentComponent } from './story/comment/comment.component';
 import { SearchBarComponent } from 'src/app/features/news-feed/search-bar/search-bar.component';
+import { LikeStoryComponent } from './story/like-story/like-story.component';
+import { LikeCommentComponent } from './story/comment/like-comment/like-comment.component';
 
 @NgModule({
     declarations: [
@@ -21,7 +23,9 @@ import { SearchBarComponent } from 'src/app/features/news-feed/search-bar/search
         StoryComponent,
         PostCommentComponent,
         CommentComponent,
-        SearchBarComponent
+        SearchBarComponent,
+        LikeStoryComponent,
+        LikeCommentComponent
     ],
     imports: [
         CommonModule,

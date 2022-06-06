@@ -38,12 +38,14 @@
 
 
   <mat-card-actions>
-    <button mat-button>LIKE</button>
+    <app-like-story [likes]="story.likedIdList"></app-like-story>
     <button mat-button>SHARE</button>
   </mat-card-actions>
 
-  
+
+  <!-- TODO: apply and adapt post new story to post new comment -->
   <app-post-comment></app-post-comment>
+
 
   <!-- comments section -->
   <mat-accordion *ngIf="story.comment?.length" class="list-comments">
@@ -53,7 +55,6 @@
       (closed)="panelOpenState = false">
 
       <mat-expansion-panel-header>
-
         <mat-panel-title>
           There are {{story.comment.length}} comment(s) on this news.
         </mat-panel-title>
@@ -61,10 +62,13 @@
         <mat-panel-description>
           {{panelOpenState ? 'Close comments' : 'See more comments'}}
         </mat-panel-description>
-
       </mat-expansion-panel-header>
 
-      <app-comment *ngFor="let comment of story.comment" [comments]="story.comment"  [comment]="comment"></app-comment>
+      <app-comment
+        *ngFor="let comment of story.comment"
+        [comments]="story.comment"
+        [comment]="comment">
+      </app-comment>
 
     </mat-expansion-panel>
 

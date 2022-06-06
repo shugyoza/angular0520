@@ -13,13 +13,15 @@ import { StoriesService } from '../../../core/services/stories/stories.service';
   styleUrls: ['./search-bar.component.sass']
 })
 export class SearchBarComponent implements OnInit, OnChanges, DoCheck, OnDestroy {
+
   @Input() stories: News[] = [];
+  // delay for debounce process, in millisecond.
+  delayTime: number = 1000;
 
   story: News = dummyNews;
   subscriptions$: Subscription[] = [];
 
   hide: boolean = true;
-  user: User = dummyUser;
 
   inputForm = new FormGroup({
     search: new FormControl('', [Validators.required])
@@ -27,7 +29,8 @@ export class SearchBarComponent implements OnInit, OnChanges, DoCheck, OnDestroy
 
   constructor(private storiesService: StoriesService) { }
 
-
+  // method to hit api only on delayed time after user stopped typing
+  // // Ref.: https://www.tektutorialshub.com/angular/debouncetime-debounce-in-angular/
   debounceT(time: number): void {
     console.log('debounceT()');
     const subscription$ = this.inputForm.valueChanges
@@ -48,7 +51,7 @@ export class SearchBarComponent implements OnInit, OnChanges, DoCheck, OnDestroy
 
 
   ngOnInit(): void {
-    this.debounceT(1000);
+    this.debounceT(this.delayTime);
   }
 
   ngOnChanges(): void { }

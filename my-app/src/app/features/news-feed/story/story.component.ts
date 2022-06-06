@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { News, Content, Comment, dummyNews, newsList } from '../../../shared/models/News';
 import { User, dummyUser } from '../../../shared/models/User';
@@ -18,6 +18,10 @@ export class StoryComponent implements OnInit {
   @Input() comments: Comment[] = [];
 
   constructor() {}
+
+  onLike() {
+    console.log('onLike()')
+  }
 
   ngOnInit(): void {
   }

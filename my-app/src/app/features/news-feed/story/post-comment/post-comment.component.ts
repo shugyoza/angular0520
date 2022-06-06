@@ -19,7 +19,7 @@ export class PostCommentComponent implements OnInit {
   user: User = dummyUser;
 
   inputForm = new FormGroup({
-    newComment: new FormControl('')
+    newComment: new FormControl('', Validators.required)
   })
 
   constructor(private storiesService: StoriesService) { }
