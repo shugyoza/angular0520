@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { News, Comment, Content, dummyComment, dummyNews, newsList } from '../../../../shared/models/News';
 import { User, dummyUser } from '../../../../shared/models/User';

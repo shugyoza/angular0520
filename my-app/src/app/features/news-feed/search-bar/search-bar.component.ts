@@ -1,5 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { Component, Input, OnInit, DoCheck, OnChanges, OnDestroy } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Observable, Subscription } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 import { News, Content, dummyNews, newsList } from '../../../shared/models/News';
 import { User, dummyUser } from '../../../shared/models/User';
@@ -10,57 +12,51 @@ import { StoriesService } from '../../../core/services/stories/stories.service';
   templateUrl: './search-bar.component.html',
   styleUrls: ['./search-bar.component.sass']
 })
-export class SearchBarComponent implements OnInit {
+export class SearchBarComponent implements OnInit, OnChanges, DoCheck, OnDestroy {
+  @Input() stories: News[] = [];
 
   story: News = dummyNews;
-  subscriptions: any[] = [];
+  subscriptions$: Subscription[] = [];
 
   hide: boolean = true;
   user: User = dummyUser;
 
   inputForm = new FormGroup({
-    newStory: new FormControl('')
+    search: new FormControl('', [Validators.required])
   })
 
   constructor(private storiesService: StoriesService) { }
+
+
+  debounceT(time: number): void {
+    console.log('debounceT()');
+    const subscription$ = this.inputForm.valueChanges
+      .pipe(debounceTime(time))
+      .subscribe(
+        (response: any) => {
+          console.log('debounceT receives: ', response, 'and pass to fetchStories: ', response.search);
+          this.storiesService.fetchStories(response.search);
+          console.log('storiesService.fetchStories(response): ', this.storiesService.filterStories(this.stories, response));
+        },
+        (error: any) => console.log('debounceT request fails, with: ', error),
+        () => console.log('debounceT() completed')
+      );
+    this.subscriptions$.push(subscription$);
+  }
+
   onSubmit(){}
-/*
-  onSubmit(): void {
 
-    this.story = {
-      publisherName: 'StephenAngularSis',
-      publishedTime: new Date(),
-      content: {
-          video: '',
-          text: this.inputForm.value.newStory,
-          image: 'https://wallpaperaccess.com/full/899071.jpg'
-      },
-      comment: [],
-      likedIdList: []
-    }
-    console.log(`story to send`, this.story);
-    window.alert(`New Story! ${'input'}`);
-    const subscription = this.storiesService.postNews(this.story).subscribe(
-      (response: any) => {
-        console.log('Response received');
-        this.story = response;
-        console.log(`Response we received`, this.story);
-      },
-      (error: any) => {
-        alert('Request failed with error');
-      },
-      () => {
-        console.log('Request completed.')
-      }
-    )
-    // keep track of subscriptions to unsubscribe onDestroy
-    this.subscriptions.push(subscription);
-  } */
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.debounceT(1000);
+  }
+
+  ngOnChanges(): void { }
+
+  ngDoCheck(): void { }
 
   ngOnDestroy(): void {
     // when the component get's destroyed, unsubscribe all the subscriptions
-    this.subscriptions.forEach((sub) => sub.unsubscribe())
+    this.subscriptions$.forEach((subscription$) => subscription$.unsubscribe())
   }
 }

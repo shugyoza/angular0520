@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, OnChanges, OnDestroy } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { News, Content, dummyNews, newsList } from '../../../shared/models/News';
 import { User, dummyUser } from '../../../shared/models/User';
@@ -19,16 +19,19 @@ export class PostFeedComponent implements OnInit, OnDestroy {
   user: User = dummyUser;
 
   inputForm = new FormGroup({
-    newStory: new FormControl('')
+    // we need Validators.required only for the button to be [disabled]
+    newStory: new FormControl('', Validators.required)
   })
 
   constructor(private storiesService: StoriesService) { }
 
   onSubmit(): void {
       this.story = {
+        // TODO: we should grab the publisherName from params
         publisherName: 'StephenAngularSis',
         publishedTime: new Date(),
         content: {
+          // TODO: for content video, text, and image, input value should be filtered by regex
             video: 'video-placeholder.mp4',
             text: this.inputForm.value.newStory,
             image: 'https://wallpaperaccess.com/full/899071.jpg'
@@ -40,42 +43,6 @@ export class PostFeedComponent implements OnInit, OnDestroy {
 
       this.storiesService.postStory(this.story, this.stories);
   }
-
-
-
-
-  /*
-  // method to submit new post
-  onSubmit(): void {
-    this.story = {
-      publisherName: 'StephenAngularSis',
-      publishedTime: new Date(),
-      content: {
-          video: 'video-placeholder.mp4',
-          text: this.inputForm.value.newStory,
-          image: 'https://wallpaperaccess.com/full/899071.jpg'
-      },
-      comment: [],
-      likedIdList: []
-    }
-    console.log(`story to send`, this.story);
-    window.alert(`New Story! ${'input'}`);
-    const subscription = this.storiesService.postNews(this.story).subscribe(
-      (response: any) => {
-        console.log('Response received');
-        this.story = response;
-        console.log(`Response we received`, this.story);
-      },
-      (error: any) => {
-        console.log('Request failed with error', error);
-      },
-      () => {
-        console.log('Request completed.')
-      }
-    )
-    // keep track of subscriptions to unsubscribe onDestroy
-    this.subscriptions.push(subscription);
-  } */
 
   ngOnInit(): void { }
 

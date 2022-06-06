@@ -10,7 +10,7 @@
 
         <app-post-feed [stories]="stories"></app-post-feed>
 
-        <app-search-bar></app-search-bar>
+        <app-search-bar [stories]="stories"></app-search-bar>
 
         <div *ngIf="stories?.length" class="list-stories">
           <div *ngFor="let story of stories" >

@@ -21,18 +21,26 @@ export class StoriesService {
   constructor(private http: HttpClient) { }
 
   // method to get data from backend, and next the stories$ subject to emit data to subscriber
-  fetchStories() {
+  fetchStories(keyword: string = '') {
     console.log('fetchStories()')
     return this.http.get<News[]>(
       `${url.api.base}${url.api.news.route}${url.api.news.path || ''}${''}`)
       .subscribe(
         (response: any) => {
 
-          // add helper to filter bad data. temporary
-          const filteredResponse = filterStories(response);
-          this.stories$.next(filteredResponse);
-          // this.storiesSubject$.next(response);
-          console.log('fetchStories() receives: ', response, 'and filter it to: ', filteredResponse);
+          // add helper to filter bad data. - temporary -
+          const goodData = helper(response);
+
+          if (!keyword || !keyword.length) {
+            this.stories$.next(goodData);
+            // this.storiesSubject$.next(response);
+            console.log('fetchStories() receives: ', response, 'and filter it to: ', goodData);
+          }
+          else {
+            const filteredData = this.filterStories(goodData, keyword);
+            this.stories$.next(filteredData)
+          }
+
         },
         (error: any) => console.log('fetchStories() request fails with: ', error),
         () => console.log('fetchStories() completed')
@@ -56,12 +64,27 @@ export class StoriesService {
       );
   };
 
+  filterStories(list: any, keyword: string = ''): any {
+    const result = [];
+    console.log('filterStories() with keyword: ', keyword)
+    for (let i = 0; i < list.length; i++) {
+      let doc = list[i];
+
+      if (doc.publisherName.toLowerCase().includes(keyword.toLowerCase()) ||
+      doc.content.text.toLowerCase().includes(keyword.toLowerCase())) {
+        console.log('publisherName.toLowerCase', doc.publisherName.toLowerCase(), doc.publisherName.toLowerCase().includes(keyword.toLowerCase()))
+        result.push(doc);
+      }
+    }
+    return result;
+  }
+
 }
 
 
 // temporary helper function to filter bad data inserted into backend
 // // e.g. data that has no content or no publisherName
-function filterStories(list: any): any {
+function helper(list: any): any {
   const result = [];
   for (let i = 0; i < list.length; i++) {
     let doc = list[i];
@@ -72,86 +95,3 @@ function filterStories(list: any): any {
   }
   return result;
 }
-
-/*
-export class NewsFeedComponent implements OnInit, OnDestroy {
-  url = url;
-  newsFeedPath = url.client.feed;
-  settingsPath = url.client.settings;
-  profilePath = url.client.profile;
-
-  stories: News[] = [];
-  story$: News = dummyNews;
-
-  subscriptions: any[] = [];
-
-  storiesSubject$ = new Subject();
-  //  behaviorSubject$ = new BehaviorSubject(this.stories$);
-  //  asyncSubject$ = new AsyncSubject();
-
-  constructor(private storiesService: StoriesService) { }
-
-  // method to get all the stories from back-end, an Observable,
-  // // and pass it into the storiesSubject$
-  nextStoriesSubject(): void {
-    console.log('fetchStories() called')
-    const subscription$ = this.storiesService
-    .fetchList().subscribe(
-        (response: any) => {
-
-          // add helper to filter bad data. temporary
-          const filteredResponse = filterStories(response);
-          this.storiesSubject$.next(filteredResponse);
-          // this.storiesSubject$.next(response);
-          console.log('fetchStories() response received', response, filteredResponse);
-        },
-        (error: any) => console.log('fetchStories() request failed with error'),
-        () => console.log('fetchStories() request completed')
-      )
-      this.subscriptions.push(subscription$);
-  };
-
-  // method to subscribe to storiesSubject$ and store it in the stories list
-  subscribeStoriesSubject(): void {
-    console.log('get stories() called');
-    if (!this.stories || !this.storiesSubject$) return;
-    const subscription$ = this.storiesSubject$.subscribe(
-      (response: any) => {
-        console.log('storiesSubject() response received', response, this.storiesSubject$);
-        this.stories = response;
-        console.log('this.stories', this.stories)
-      },
-      (error: any) => console.log('get stories() request failed with error'),
-      () => console.log('get stories() request completed')
-    );
-    this.subscriptions.push(subscription$);
-  }
-
-  ngOnInit(): void {
-    this.nextStoriesSubject();
-    this.subscribeStoriesSubject();
-  }
-
-  ngOnChanges(): void {
-    console.log('ngOnChanges')
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.forEach((sub) => sub.unsubscribe())
-  }
-
-}
-
-
-function filterStories(list: any): any {
-  const result = [];
-  for (let i = 0; i < list.length; i++) {
-    let doc = list[i];
-    if (
-      (doc.publisherName && doc.publisherName !== '') &&
-      (doc.content && (doc.content.text || doc.content.image))
-    ) result.push(doc);
-  }
-  return result;
-}
-*/
