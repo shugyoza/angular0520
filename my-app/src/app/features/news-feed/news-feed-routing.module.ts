@@ -8,6 +8,11 @@ const routes: Routes = [
         path: 'feed',
         component: NewsFeedComponent,
         children: [ ]
+    },
+    {
+        path: 'feed/:publisherName', // 'feed',
+        component: NewsFeedComponent,
+        children: [ ]
     }
 ];
 

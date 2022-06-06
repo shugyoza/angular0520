@@ -6,11 +6,11 @@ import { User, dummyUser } from '../../../shared/models/User';
 import { StoriesService } from '../../../core/services/stories/stories.service';
 
 @Component({
-  selector: 'app-post-feed',
-  templateUrl: './post-feed.component.html',
-  styleUrls: ['./post-feed.component.sass']
+  selector: 'app-search-bar',
+  templateUrl: './search-bar.component.html',
+  styleUrls: ['./search-bar.component.sass']
 })
-export class PostFeedComponent implements OnInit, OnDestroy {
+export class SearchBarComponent implements OnInit {
 
   story: News = dummyNews;
   subscriptions: any[] = [];

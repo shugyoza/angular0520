@@ -3,15 +3,14 @@
   </style>
 
   <main>
-    <nav>
-      <a>Like List</a>
-    </nav>
 
     <div class="div__main">
 
       <div>
 
         <app-post-feed></app-post-feed>
+
+        <app-search-bar></app-search-bar>
 
         <div *ngIf="stories?.length" class="list-stories">
           <div *ngFor="let story of stories" >

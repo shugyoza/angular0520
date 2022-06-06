@@ -1,3 +1,80 @@
+<mat-card class="story-card">
+
+  <mat-card-header>
+
+    <div mat-card-avatar class="example-header-image">
+      <img
+      class="logo"
+      width=50
+      src={{logo}}
+      alt="logo" />
+    </div>
+
+    <mat-card-title>
+      {{story.publisherName ? story.publisherName : "No publisherName"}}
+    </mat-card-title>
+
+    <mat-card-subtitle>
+      {{story.publishedTime | date}}
+    </mat-card-subtitle>
+
+  </mat-card-header>
+
+
+  <img *ngIf="story.content.image"
+  mat-card-image src={{story.content.image}}
+  alt="Photo">
+
+
+  <mat-card-content>
+    <p>
+      {{story.content.text ? story.content.text : ""}}
+    </p>
+    <p *ngIf="!story.content ||
+      (!story.content.text && !story.content.image && !story.content.video)">
+      No text, image nor video. Ensure to validate new post.
+    </p>
+  </mat-card-content>
+
+
+  <mat-card-actions>
+    <button mat-button>LIKE</button>
+    <button mat-button>SHARE</button>
+  </mat-card-actions>
+
+  
+  <app-post-comment></app-post-comment>
+
+  <!-- comments section -->
+  <mat-accordion *ngIf="story.comment?.length" class="list-comments">
+
+    <mat-expansion-panel
+      (opened)="panelOpenState = true"
+      (closed)="panelOpenState = false">
+
+      <mat-expansion-panel-header>
+
+        <mat-panel-title>
+          There are {{story.comment.length}} comment(s) on this news.
+        </mat-panel-title>
+
+        <mat-panel-description>
+          {{panelOpenState ? 'Close comments' : 'See more comments'}}
+        </mat-panel-description>
+
+      </mat-expansion-panel-header>
+
+      <app-comment *ngFor="let comment of story.comment" [comments]="story.comment"  [comment]="comment"></app-comment>
+
+    </mat-expansion-panel>
+
+  </mat-accordion>
+
+
+</mat-card>
+
+
+<!--
 <div *ngIf="story.content">
       On {{story.publishedTime}} {{story.publisherName}} wrote:
       <br>
@@ -18,4 +95,4 @@
     </div>
 
     <app-post-comment></app-post-comment>
-</div>
+</div> -->

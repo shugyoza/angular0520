@@ -1,4 +1,4 @@
-  <main id="login-container">
+  <div id="login-container">
 
     <form
       id="login-form"
@@ -7,12 +7,12 @@
       (ngSubmit)="onLogin()" >
 
       <fieldset
-        id="fieldset-{{form.fields.email.id}}" >
+        id="fieldset__login" >
 
         <img
           class="logo"
           width=200
-          src="https://d7hftxdivxxvm.cloudfront.net/?resize_to=fit&width=800&height=800&quality=80&src=https%3A%2F%2Fd32dm0rphc51dk.cloudfront.net%2F_DogUIUeT1Ke3UvxGQbPGA%2Fnormalized.jpg"
+          src={{logo}}
           alt="logo" />
 
 
@@ -21,19 +21,35 @@
           appearance="fill" >
 
           <mat-label
-            id="label-{{form.fields.email.id}}" >
-            {{form.fields.email.label}}
+            id="label-{{email.id}}" >
+            {{email.label}}
           </mat-label>
 
           <input
             matInput
-            id="input-{{form.fields.email.id}}"
-            type={{form.fields.email.type}}
-            name={{form.fields.email.id}}
-            placeholder={{form.fields.email.placeholder}}
-            formControlName={{form.fields.email.id}} />
+            id="input-{{email.id}}"
+            type={{email.type}}
+            name={{email.id}}
+            placeholder={{email.placeholder}}
+            formControlName={{email.id}} />
 
           <mat-hint>Please type your email</mat-hint>
+
+          <!-- Pop up error message for invalid input -->
+          <mat-error
+            *ngIf="loginForm.get(email.id)?.hasError(email.id) &&
+            !loginForm.get(email.id)?.hasError('required')">
+            Email is required
+          </mat-error>
+
+          <mat-error
+            *ngIf="loginForm.get(email.id)?.hasError('required')">
+            Invalid email input
+          </mat-error>
+
+          <mat-error *ngIf="loginDenied">
+            Invalid email address or password
+          </mat-error>
 
         </mat-form-field>
 
@@ -43,19 +59,39 @@
           appearance="fill">
 
           <mat-label
-            id="label-{{form.fields.password.id}}" >
-            {{form.fields.password.label}}
+            id="label-{{password.id}}" >
+            {{password.label}}
           </mat-label>
 
           <input
             matInput
-            id="input-{{form.fields.password.id}}"
-            type={{form.fields.password.type}}
-            name={{form.fields.password.id}}
-            placeholder={{form.fields.password.placeholder}}
-            formControlName={{form.fields.password.id}} />
+            [type]="hide ? 'password' : 'text'"
+            id="input-{{password.id}}"
+            type={{password.type}}
+            name={{password.id}}
+            placeholder={{password.placeholder}}
+            formControlName={{password.id}}>
+
+              <button
+                mat-icon-button matSuffix
+                (click)="hide = !hide"
+                [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide">
+                  <mat-icon>
+                    {{hide ? 'visibility_off' : 'visibility'}}
+                  </mat-icon>
+              </button>
 
           <mat-hint>Please type your password</mat-hint>
+
+          <!-- Pop up error message for invalid input -->
+          <mat-error *ngIf="loginForm.get(password.id)?.hasError(password.id) && !loginForm.get(password.id)?.hasError('required')">
+            Password is required
+          </mat-error>
+
+          <mat-error *ngIf="loginDenied">
+            Invalid email address or password
+          </mat-error>
 
         </mat-form-field>
 
@@ -87,4 +123,4 @@
 
     </form>
 
-  </main>
+  </div>

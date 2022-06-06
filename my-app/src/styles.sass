@@ -2,7 +2,7 @@
 
 $font-size: min(4rem, max(.875rem, 2vw))
 $font-stack: Helvetica, sans-serif
-$body-bg: lightgray
+$body-bg: transparent
 $main-bg: white
 
 *,
@@ -18,7 +18,7 @@ body
 
 main
     background-color: $main-bg
-    width: 60%
+    width: 80%
     margin: auto
     height: 70%
 
@@ -42,14 +42,6 @@ li
 p
     width: 100%
 
-.div__main
-    background-color: $main-bg
-    display: flex
-    flex-direction: column
-    justify-content: space-around
-    align-items: center
-    overflow-wrap: break-word
-
 fieldset
     display: flex
     flex-direction: column
@@ -58,8 +50,22 @@ fieldset
     margin: 1rem
     border: none
 
+img
+    width: 200
+
+.div__main
+    background-color: $main-bg
+    display: flex
+    flex-direction: column
+    justify-content: space-around
+    align-items: center
+    overflow-wrap: break-word
+
 .row
     display: flex
     flex-direction: row
     justify-content: space-between
     gap: 1rem
+
+.mat-card
+    margin: 1rem

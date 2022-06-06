@@ -14,7 +14,7 @@ import { ProfileModule } from './features/profile/profile.module';
 import { AdminModule } from './features/admin/admin.module';
 import { NewsFeedModule } from './features/news-feed/news-feed.module';
 import { SharedModule } from './shared/shared.module';
-import { AngularMaterialModule } from './material.module'; // Styling
+import { AngularMaterialModule } from './shared/material.module';
 
 // COMPONENTS
 import { AppComponent } from './app.component';
@@ -40,7 +40,6 @@ import { AuthenticationService } from './core/services/authentication/authentica
     HttpClientModule,
 
     BrowserAnimationsModule,
-    AngularMaterialModule,
 
     LoginModule,
     RegisterModule,
@@ -49,15 +48,19 @@ import { AuthenticationService } from './core/services/authentication/authentica
     AdminModule,
     NewsFeedModule,
     SharedModule,
+    AngularMaterialModule,
 
     // This module must be at the bottom because it contains wild card ** for page not found
     AppRoutingModule,
   ],
-  providers: [UserService, StoriesService, AuthenticationService],
-//  providers: [{provide: AuthenticationService}, use: class AuthenticationService]
+  providers: [
+    UserService,
+    StoriesService,
+    AuthenticationService,
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
 
 /*
     // apply the RouterModule here to connect the path and corresponding component

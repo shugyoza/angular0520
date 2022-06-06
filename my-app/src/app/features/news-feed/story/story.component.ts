@@ -1,5 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { News, dummyNews } from '../../../shared/models/News';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
+
+import { News, Content, Comment, dummyNews, newsList } from '../../../shared/models/News';
+import { User, dummyUser } from '../../../shared/models/User';
+import { StoriesService } from '../../../core/services/stories/stories.service';
+import { url } from '../../../shared/utils/url';
 
 @Component({
   selector: 'app-story',
@@ -7,10 +12,12 @@ import { News, dummyNews } from '../../../shared/models/News';
   styleUrls: ['./story.component.sass']
 })
 export class StoryComponent implements OnInit {
-
+  logo = url.logo;
+  panelOpenState: boolean = false;
   @Input() story: News = dummyNews;
+  @Input() comments: Comment[] = [];
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
   }

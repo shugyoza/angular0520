@@ -1,4 +1,50 @@
+<div id="postComment-container">
+
+    <form
+        id="postComment-form"
+        class="fieldset"
+        [formGroup]="inputForm"
+        (ngSubmit)="onSubmit()" >
+
+    <mat-form-field
+        class="row"
+        appearance="fill" >
+
+        <mat-label
+            id="label-newComment" >
+            What do you think?
+        </mat-label>
+
+        <textarea
+            matInput
+            id="input-newComment"
+            type="text"
+            name="newComment"
+            placeholder="Post new comments"
+            formControlName="newComment">
+        </textarea>
+
+        <mat-hint>
+            Input your comment
+        </mat-hint>
+
+    </mat-form-field>
+
+    <button
+        mat-fab
+        color="primary"
+        class="btn btn-post btn-green"
+        type="submit"
+        [disabled]="!inputForm.valid">
+        Post
+    </button>
+
+    </form>
+
+</div>
+
+<!--
 <div>
     <input type="text" placeholder="New Comments" />
     <button mat-raised-button>Post</button>
-</div>
+</div> -->
