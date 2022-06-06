@@ -30,7 +30,7 @@ export class NewsFeedComponent implements OnInit, OnDestroy {
   stories: News[] = [];
   story$: News = dummyNews;
 
-  subscriptions$: any[] = [];
+  subscriptions: any[] = [];
 
   storiesSubject$ = new Subject();
   //  behaviorSubject$ = new BehaviorSubject(this.stories$);
@@ -38,40 +38,6 @@ export class NewsFeedComponent implements OnInit, OnDestroy {
 
   constructor(private storiesService: StoriesService) { }
 
-  // method to subscribe to stories Subject, store it in stories, and render DOM
-  subscribeStories(): void {
-    const subscription$ = this.storiesService.stories$.subscribe(
-      (response: any) => {
-        this.stories = response;
-        console.log('subscribeStories() receives: ', response, 'this.stories: ', this.stories);
-      },
-      (error: any) => console.log('get stories() request fails with: ', error),
-      () => console.log('get stories() request completed')
-    );
-    this.subscriptions$.push(subscription$);
-  }
-
-  ngOnInit(): void {
-    // fetch data list from back end
-    this.storiesService.fetchStories();
-    // this subscription will automatically update the DOM when Subject got updated (next-ed)
-    this.subscribeStories();
-  }
-
-  ngOnChanges(): void {
-    console.log('ngOnChanges')
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions$.forEach((subscription$) => subscription$.unsubscribe());
-  }
-
-}
-
-
-
-
-  /*
   // method to get all the stories from back-end, an Observable,
   // // and pass it into the storiesSubject$
   nextStoriesSubject(): void {
@@ -106,8 +72,35 @@ export class NewsFeedComponent implements OnInit, OnDestroy {
       () => console.log('get stories() request completed')
     );
     this.subscriptions.push(subscription$);
-  } */
+  }
 
+  ngOnInit(): void {
+    this.nextStoriesSubject();
+    this.subscribeStoriesSubject();
+  }
+
+  ngOnChanges(): void {
+    console.log('ngOnChanges')
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((sub) => sub.unsubscribe())
+  }
+
+}
+
+
+function filterStories(list: any): any {
+  const result = [];
+  for (let i = 0; i < list.length; i++) {
+    let doc = list[i];
+    if (
+      (doc.publisherName && doc.publisherName !== '') &&
+      (doc.content && (doc.content.text || doc.content.image))
+    ) result.push(doc);
+  }
+  return result;
+}
 
 
 /*

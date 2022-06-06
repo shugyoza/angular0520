@@ -23,7 +23,8 @@ export class SearchBarComponent implements OnInit {
   })
 
   constructor(private storiesService: StoriesService) { }
-
+  onSubmit(){}
+/*
   onSubmit(): void {
 
     this.story = {
@@ -54,7 +55,7 @@ export class SearchBarComponent implements OnInit {
     )
     // keep track of subscriptions to unsubscribe onDestroy
     this.subscriptions.push(subscription);
-  }
+  } */
 
   ngOnInit(): void { }
 
