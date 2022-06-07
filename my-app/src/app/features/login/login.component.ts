@@ -90,7 +90,7 @@ export class LoginComponent implements OnInit {
         else console.log('Invalid password! TODO: Create directive to show the error on this login page.');
       },
       // defined callback if we got an error response
-      (error: any) => console.log('Request to get User failed with error.'),
+      (error: any) => console.log('93 Request to get User failed with error.', error),
       // define optional callback as needed
       () => console.log('Request to get User completed.')
     );
@@ -111,14 +111,13 @@ export class LoginComponent implements OnInit {
         console.log('Response for userEmail check received.', response);
         if (response === false) {
           console.log('Invalid userEmail! TODO: Create directive to show the error on this login page.');
-          this.loginDenied = true;
-          console.log(this.loginDenied)
-          this.ngOnInit()
+          // this.loginDenied = true;
+          // console.log(this.loginDenied)
         }
         else this.onGetUser(email, password);
       },
       // callback for thrown error
-      (error: any) => console.log('Request for userEmail check failed with error.'),
+      (error: any) => console.log('Request for userEmail check failed with error.', error),
       // optional callback
       () => console.log('Request for userEmail check completed.')
 

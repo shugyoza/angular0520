@@ -39,7 +39,7 @@
           <mat-error
             *ngIf="loginForm.get(email.id)?.hasError(email.id) &&
             !loginForm.get(email.id)?.hasError('required')">
-            Email is required
+            Email is required, e.g. yourName@email.com
           </mat-error>
 
           <mat-error

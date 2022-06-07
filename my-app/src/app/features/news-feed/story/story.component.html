@@ -38,8 +38,12 @@
 
 
   <mat-card-actions>
-    <app-like-story [likes]="story.likedIdList"></app-like-story>
-    <button mat-button>SHARE</button>
+    <app-like-story
+      [stories]="stories"
+      [story]="story"
+      [likes]="story.likedIdList">
+    </app-like-story>
+    <!-- <button mat-button>SHARE</button> -->
   </mat-card-actions>
 
 

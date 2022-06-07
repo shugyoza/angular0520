@@ -13,6 +13,7 @@ import { Observable
 
 import { News, dummyNews } from '../../shared/models/News';
 import { StoriesService } from '../../core/services/stories/stories.service';
+import { UserService } from '../../core/services/user/user.service';
 import { url } from '../../shared/utils/url';
 
 @Component({
@@ -32,7 +33,10 @@ export class NewsFeedComponent implements OnInit, OnDestroy {
 
   subscriptions$: any[] = [];
 
-  constructor(private storiesService: StoriesService) { }
+  constructor(
+    private storiesService: StoriesService,
+    private userService: UserService
+    ) { }
 
   // method to subscribe to stories Subject, store it in stories, and render DOM
   subscribeStories(keyword: string | undefined): void {

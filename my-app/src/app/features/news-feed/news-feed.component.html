@@ -14,7 +14,10 @@
 
         <div *ngIf="stories?.length" class="list-stories">
           <div *ngFor="let story of stories" >
-            <app-story [story]="story"></app-story>
+            <app-story
+              [stories]="stories"
+              [story]="story">
+            </app-story>
           </div>
         </div>
 

@@ -12,30 +12,30 @@ export const url = {
       },
 
     api: {
-      base: 'http://localhost:4231/',
+      base: 'http://localhost:4231',
 
       register: {
-        route: 'api/news/',
+        route: 'api/register',
         path: {
-          checkUsername: 'checkExistByUsername/',
-          checkEmail: 'checkExistByEmail/',
-          getUserById: 'getUserById/',
-          createUser: 'createNewAccount/'
+          checkUsername: 'checkExistByUsername',
+          checkEmail: 'checkExistByEmail',
+          getUserById: 'getUserById',
+          createUser: 'createNewAccount'
         }
       },
       login: {
-        route: 'api/login/',
+        route: 'api/login',
         path: ''
       },
       news: {
-        route: 'api/news/',
+        route: 'api/news',
         path: ''
       },
       users: {
-        route: 'api/users/',
+        route: 'api/users',
         path: {
-          getOne: 'getProfile/',
-          getAll: 'getAllUsers/'
+          getOne: 'getProfile',
+          getAll: 'getAllUsers'
         }
     }
   }

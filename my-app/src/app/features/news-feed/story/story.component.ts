@@ -1,9 +1,7 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
 
-import { News, Content, Comment, dummyNews, newsList } from '../../../shared/models/News';
+import { News, dummyNews } from '../../../shared/models/News';
 import { User, dummyUser } from '../../../shared/models/User';
-import { StoriesService } from '../../../core/services/stories/stories.service';
 import { url } from '../../../shared/utils/url';
 
 @Component({
@@ -14,8 +12,9 @@ import { url } from '../../../shared/utils/url';
 export class StoryComponent implements OnInit {
   logo = url.logo;
   panelOpenState: boolean = false;
+
+  @Input() stories: News[] = [];
   @Input() story: News = dummyNews;
-  @Input() comments: Comment[] = [];
 
   constructor() {}
 
