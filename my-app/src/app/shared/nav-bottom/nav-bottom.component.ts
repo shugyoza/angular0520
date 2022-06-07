@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { url } from '../utils/url';
 
 @Component({
   selector: 'app-nav-bottom',
@@ -7,12 +9,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavBottomComponent implements OnInit {
 
-  newsFeedPath = '/feed';
-  settingsPath = '/settings';
-  profilePath = '/profile';
-  adminPath = '/admin';
+  url = url;
+  newsFeedPath = url.client.feed;
+  settingsPath = url.client.settings;
+  profilePath = url.client.profile;
 
-  constructor() { }
+  constructor(private router: Router) { }
+
+  onProfile() {
+    this.router.navigate(['profile']);
+  }
+
+  onFeed() {
+    this.router.navigate(['profile']);
+  }
+
+  onSettings() {
+    this.router.navigate(['settings']);
+  }
 
   ngOnInit(): void {
   }

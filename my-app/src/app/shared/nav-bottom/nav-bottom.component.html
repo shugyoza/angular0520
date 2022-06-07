@@ -1,24 +1,26 @@
-<nav class="nav-bottom">
+<p>
+  <mat-toolbar color="primary">
 
-    <button
-      routerLink="profilePath"
+    <button mat-button
+      (click)="onProfile()"
       class="btn"
       id="btn-profile" >
-      XXX My Profile
+      My Profile
     </button>
 
-    <button
-      routerLink="newsFeedPath"
+    <button mat-button
+      (click)="onFeed()"
       class="btn"
       id="btn-feed" >
       News Feed
     </button>
 
-    <button
-      routerLink="settingsPath"
+    <button mat-button
+      (click)="onSettings()"
       class="btn"
       id="btn-setting" >
       Settings
     </button>
 
-  </nav>
+  </mat-toolbar>
+</p>
