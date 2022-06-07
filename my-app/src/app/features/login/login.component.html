@@ -3,7 +3,7 @@
     <form
       id="login-form"
       class="div__main"
-      [formGroup]="loginForm"
+      [formGroup]="inputForm"
       (ngSubmit)="onLogin()" >
 
       <fieldset
@@ -37,18 +37,14 @@
 
           <!-- Pop up error message for invalid input -->
           <mat-error
-            *ngIf="loginForm.get(email.id)?.hasError(email.id) &&
-            !loginForm.get(email.id)?.hasError('required')">
+            *ngIf="inputForm.get(email.id)?.hasError(email.id) &&
+            !inputForm.get(email.id)?.hasError('required')">
             Email is required, e.g. yourName@email.com
           </mat-error>
 
           <mat-error
-            *ngIf="loginForm.get(email.id)?.hasError('required')">
+            *ngIf="inputForm.get(email.id)?.hasError('required')">
             Invalid email input
-          </mat-error>
-
-          <mat-error *ngIf="loginDenied">
-            Invalid email address or password
           </mat-error>
 
         </mat-form-field>
@@ -85,12 +81,16 @@
           <mat-hint>Please type your password</mat-hint>
 
           <!-- Pop up error message for invalid input -->
-          <mat-error *ngIf="loginForm.get(password.id)?.hasError(password.id) && !loginForm.get(password.id)?.hasError('required')">
+          <mat-error
+            *ngIf="inputForm.get(password.id)?.hasError(password.id) &&
+            !inputForm.get(password.id)?.hasError('required')">
             Password is required
           </mat-error>
 
-          <mat-error *ngIf="loginDenied">
-            Invalid email address or password
+          <mat-error
+            *ngIf="inputForm.get(password.id)?.hasError(password.id) &&
+            !inputForm.get(password.id)?.hasError('minLength')">
+            Password is too short
           </mat-error>
 
         </mat-form-field>
@@ -101,7 +101,7 @@
           color="primary"
           class="btn btn-login btn-green"
           type="submit"
-          [disabled]="!loginForm.valid">
+          [disabled]="!inputForm.valid">
           Login
         </button>
 
@@ -124,3 +124,11 @@
     </form>
 
   </div>
+
+          <!-- <mat-error *ngIf="!inputForm?.get(password.id)?.errors?.['validateCredential']">
+            Invalid email address or password / {{inputForm?.get(password.id)?.errors?.['requiredValue']}}
+          </mat-error>
+
+          <mat-error *ngIf="!inputForm?.get(password.id)?.errors?.['validateCredential']">
+            Invalid email address or password
+          </mat-error> -->

@@ -33,9 +33,20 @@ export class AuthenticationService {
     (`${url.api.base}/${url.api.register.route}/${url.api.register.path.checkUsername}/${userName}`)
   }
 
-  getUser(userEmail: string, password: string): Observable<User> {
+  fetchUser(userEmail: string, password: string) {
     return this.http.post<User>
     (`${url.api.base}/${url.api.login.route}`, { userEmail, password })
+    .subscribe(
+      (response: any) => {
+        this.user$.next(response);
+        console.log('fetchUser() receives: ', response)
+      },
+      (error: any) => {
+        console.log('fetchUser() fails: ', error);
+        alert('Invalid email or password');
+      },
+      () => console.log('fetchUser() completed')
+    )
   }
 
   registerNewUser(userEmail: string, userName: string, password: string): Observable<User> {

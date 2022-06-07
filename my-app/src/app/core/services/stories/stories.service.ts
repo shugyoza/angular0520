@@ -24,7 +24,7 @@ export class StoriesService {
   fetchStories(keyword: string = '') {
     console.log('fetchStories()')
     return this.http.get<News[]>(
-      `${url.api.base}${url.api.news.route}${url.api.news.path || ''}${''}`)
+      `${url.api.base}/${url.api.news.route}/${url.api.news.path}`)
       .subscribe(
         (response: any) => {
 
