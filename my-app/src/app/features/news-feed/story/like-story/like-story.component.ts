@@ -5,6 +5,7 @@ import { LikedId } from '../../../../shared/models/News';
 import { News, dummyNews } from '../../../../shared/models/News';
 import { User, dummyUser } from '../../../../shared/models/User';
 import { StoriesService } from '../../../../core/services/stories/stories.service';
+import { AuthenticationService } from '../../../../core/services/authentication/authentication.service';
 
 import { url } from '../../../../shared/utils/url';
 
@@ -21,11 +22,15 @@ export class LikeStoryComponent implements OnInit {
     @Input() liked: boolean = false;
     @Input() likes: LikedId[] = [];
 
+    subscriptions$: any = [];
+
     inputForm = new FormGroup({
         like: new FormControl(false)
     })
 
-    constructor(private storiesService: StoriesService) { }
+    constructor(
+      private storiesService: StoriesService,
+      private authentication: AuthenticationService) { }
 
   onLike() {
       // console.log(this.inputForm.value.like, this.likes, this.storiesService.stories$.subscribe(data => console.log(data)))

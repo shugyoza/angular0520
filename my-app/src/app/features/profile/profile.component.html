@@ -1,9 +1,6 @@
 <main>
-    <nav class="nav-top">
-      <a id="like-list">Like List</a>
-    </nav>
 
-    <div class="div__main">
+  <div class="div__main">
 
       <fieldset *ngIf="user">
 
@@ -49,31 +46,5 @@
       </fieldset>
 
     </div>
-
-
-    <nav class="nav-bottom">
-
-      <button
-        [routerLink]="profilePath"
-        class="btn"
-        id="btn-profile" >
-        My Profile
-      </button>
-
-      <button
-        [routerLink]="newsFeedPath"
-        class="btn"
-        id="btn-feed" >
-        News Feed
-      </button>
-
-      <button
-        [routerLink]="settingsPath"
-        class="btn"
-        id="btn-settings" >
-        Settings
-      </button>
-
-    </nav>
 
   </main>

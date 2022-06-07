@@ -1,5 +1,39 @@
 <mat-toolbar color="primary">
-    <span>
-        <a>Like List</a>
-    </span>
+
+    <button mat-button>
+        Logout
+    </button>
+
+    <button mat-button>
+        Like List
+    </button>
+
+    <button mat-button
+        (click)="onProfile()"
+        class="btn"
+        id="btn-profile" >
+        My Profile
+    </button>
+
+    <button mat-button
+        (click)="onFeed()"
+        class="btn"
+        id="btn-feed" >
+        News Feed
+    </button>
+
+    <button mat-button
+        (click)="onSettings()"
+        class="btn"
+        id="btn-setting" >
+        Settings
+    </button>
+
+    <button mat-button
+        (click)="onAdmin()"
+        class="btn"
+        id="btn-admin" >
+        Admin
+    </button>
+
 </mat-toolbar>
