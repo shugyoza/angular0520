@@ -1,8 +1,9 @@
 import { Component, OnInit, OnChanges, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked} from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { BehaviorSubject } from 'rxjs';
 
-import { User, dummyUser } from '../../shared/models/User';
+import { User, User_, dummyUser } from '../../shared/models/User';
 import { AuthenticationService } from '../../core/services/authentication/authentication.service';
 import { UserService } from '../../core/services/user/user.service';
 // import { validateCredential, AsyncValidatorFn } from '../../core/services/authentication/credential.validator';
@@ -24,7 +25,7 @@ export class LoginComponent implements OnInit {
   logo = url.logo;
 
   hide: boolean = true;
-  user: User = dummyUser;
+  user!: User_;
   subscriptions$: any[] = []; // array to store Observables
 
   constructor(
@@ -49,9 +50,9 @@ export class LoginComponent implements OnInit {
   // method to subscribe to who is the logged in user
   subscribeUser(): void {
     const subscription$ = this.authentication.user$.subscribe(
-      (response: any) => {
+      (response: User_) => {
         this.user = response;
-        console.log('subscribeUser() receives: ', this.user);
+        console.log('subscribeUser() receives and emit: ', this.user);
       },
       (error: any) => console.log('subscribeUser() fails: ', error),
       () => console.log('subscribeUser() completed')
@@ -74,7 +75,6 @@ export class LoginComponent implements OnInit {
         }
         else {
           this.authentication.fetchUser(email, password);
-          this.subscribeUser();
           this.router.navigate(['feed']);
         }
       },
@@ -96,10 +96,18 @@ export class LoginComponent implements OnInit {
   }
 
   ngDoCheck() {  }
-  ngAfterContentInit() { console.log('ngAfterContentInit') }
-  ngAfterContentChecked() { console.log('ngAfterContentChecked')}
-  ngAfterViewInit() {console.log('ngAfterViewInit')}
-  ngAfterViewChecked() { console.log('ngAfterViewChecked')}
+  ngAfterContentInit() {
+    // console.log('ngAfterContentInit')
+  }
+  ngAfterContentChecked() {
+    // console.log('ngAfterContentChecked')
+  }
+  ngAfterViewInit() {
+    // console.log('ngAfterViewInit')
+  }
+  ngAfterViewChecked() {
+    // console.log('ngAfterViewChecked')
+  }
 
 
 

@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserService } from 'src/app/core/services/user/user.service';
+import { StoriesService } from 'src/app/core/services/stories/stories.service';
 import { url } from '../utils/url';
 
 @Component({
@@ -15,7 +17,27 @@ export class NavTopComponent implements OnInit {
   profilePath = url.client.profile;
   adminPath = url.client.admin;
 
-  constructor(private router: Router) { }
+  panelOpenState = false;
+
+  likedStories: any[] = [];
+  subscriptions$: any[] = [];
+
+  constructor(
+    private router: Router
+    , private userService: UserService
+    , private storiesService: StoriesService
+    ) { }
+
+  // grab liked stories from Subject
+  getLikedStories() { // temporary: get likedStories
+    const observer = {
+      next: (stories: any) => this.likedStories = stories,
+      error: (err: Error) => console.log('nav-top getStories() fails, with: ', err),
+      complete: () => console.log('nav-top getStories() completed')
+    }
+    // this.subscriptions$.push(this.storiesService.stories$.subscribe(observer));
+    this.subscriptions$.push(this.userService.likedStories$.subscribe(observer));
+  }
 
   onProfile() {
     this.router.navigate(['profile']);
@@ -33,5 +55,8 @@ export class NavTopComponent implements OnInit {
     this.router.navigate(['admin']);
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getLikedStories()
+  }
+
 }

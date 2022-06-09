@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, OnChanges, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
-import { News, Content, dummyNews, newsList } from '../../../shared/models/News';
+import { News, News_, Content, dummyNews, newsList } from '../../../shared/models/News';
 import { User, dummyUser } from '../../../shared/models/User';
 import { StoriesService } from '../../../core/services/stories/stories.service';
 
@@ -11,8 +11,8 @@ import { StoriesService } from '../../../core/services/stories/stories.service';
   styleUrls: ['./post-feed.component.sass']
 })
 export class PostFeedComponent implements OnInit, OnDestroy {
-  @Input() stories: News[] = [];
-  story: News = dummyNews;
+  @Input() stories: News_[] = [];
+  story!: News;
   subscriptions$: any[] = [];
 
   hide: boolean = true;

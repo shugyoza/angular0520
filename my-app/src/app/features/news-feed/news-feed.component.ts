@@ -4,14 +4,7 @@ import { Component
   , OnDestroy
   , VERSION } from '@angular/core';
 
-import { Observable
-  , of
-  , BehaviorSubject
-  , AsyncSubject
-  , from
-  , Subject } from 'rxjs';
-
-import { News, dummyNews } from '../../shared/models/News';
+import { News, News_, dummyNews } from '../../shared/models/News';
 import { StoriesService } from '../../core/services/stories/stories.service';
 import { UserService } from '../../core/services/user/user.service';
 import { url } from '../../shared/utils/url';
@@ -28,27 +21,24 @@ export class NewsFeedComponent implements OnInit, OnDestroy {
   settingsPath = url.client.settings;
   profilePath = url.client.profile;
 
-  stories: News[] = [];
-  story$: News = dummyNews;
+  stories: News_[] = [];
+  story$!: News_;
 
   subscriptions$: any[] = [];
 
-  constructor(
-    private storiesService: StoriesService,
-    private userService: UserService
-    ) { }
+  constructor(private storiesService: StoriesService) { }
 
   // method to subscribe to stories Subject, store it in stories, and render DOM
-  subscribeStories(keyword: string | undefined): void {
+  subscribeStories(keyword: string = ''): void {
     const subscription$ = this.storiesService.stories$.subscribe(
       (response: any) => {
-        if (!keyword) {
+        if (!keyword.length) {
           this.stories = response;
-          console.log('subscribeStories() receives: ', response, 'this.stories: ', this.stories);
+          // console.log('subscribeStories() receives: ', response, 'this.stories: ', this.stories);
         }
       },
       (error: any) => console.log('get stories() request fails with: ', error),
-      () => console.log('get stories() request completed')
+      // () => console.log('get stories() request completed')
     );
     this.subscriptions$.push(subscription$);
   }
@@ -57,7 +47,7 @@ export class NewsFeedComponent implements OnInit, OnDestroy {
     // fetch data list from back end
     this.storiesService.fetchStories();
     // this subscription will automatically update the DOM when Subject got updated (next-ed)
-    this.subscribeStories('');
+    this.subscribeStories();
   }
 
   ngOnChanges(): void {  }

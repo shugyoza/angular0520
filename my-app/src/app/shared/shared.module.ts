@@ -5,12 +5,14 @@ import { AngularMaterialModule } from 'src/app/shared/material.module';
 import { NavTopComponent } from './nav-top/nav-top.component';
 import { NavBottomComponent } from './nav-bottom/nav-bottom.component';
 import { ErrPageNotFoundComponent } from './err-page-not-found/err-page-not-found.component';
+import { LikedStoriesComponent } from '../features/news-feed/liked-stories/liked-stories.component';
 
 @NgModule({
   declarations: [
     NavTopComponent,
     NavBottomComponent,
-    ErrPageNotFoundComponent
+    ErrPageNotFoundComponent,
+    LikedStoriesComponent
   ],
   imports: [
     CommonModule,
@@ -19,6 +21,7 @@ import { ErrPageNotFoundComponent } from './err-page-not-found/err-page-not-foun
   exports: [
     NavTopComponent,
     NavBottomComponent,
+    LikedStoriesComponent
   ]
 })
 export class SharedModule { }

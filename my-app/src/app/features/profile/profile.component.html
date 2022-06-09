@@ -1,4 +1,223 @@
-<main>
+<div id="login-container">
+
+  <form
+    id="login-form"
+    class="div__main"
+    [formGroup]="inputForm"
+    (ngSubmit)="onSave()" >
+
+    <fieldset
+      id="fieldset__login"
+      *ngIf="user" >
+
+      <img
+        class="logo"
+        width=200
+        src={{logo}}
+        alt="logo" />
+
+
+      <mat-form-field
+        class="row"
+        appearance="fill" >
+
+        <mat-label
+          id="label-{{username.id}}" >
+          {{username.label}}
+        </mat-label>
+
+        <input
+          matInput
+          id="input-{{username.id}}"
+          type={{username.type}}
+          name={{username.id}}
+          placeholder={{username.placeholder}}
+          formControlName={{email.id}} />
+
+        <mat-hint>Username must be unique</mat-hint>
+
+        <!-- Pop up error message for invalid input -->
+        <mat-error
+          *ngIf="inputForm.get(username.id)?.hasError(username.id) &&
+          !inputForm.get(username.id)?.hasError('required')">
+          Username is required
+        </mat-error>
+
+        <mat-error
+          *ngIf="inputForm.get(email.id)?.hasError('required')">
+          Invalid email input
+        </mat-error>
+
+      </mat-form-field>
+
+
+      <mat-form-field
+        class="row"
+        appearance="fill">
+
+        <mat-label
+          id="label-{{password.id}}" >
+          {{password.label}}
+        </mat-label>
+
+        <input
+          matInput
+          [type]="hide ? 'password' : 'text'"
+          id="input-{{password.id}}"
+          type={{password.type}}
+          name={{password.id}}
+          placeholder={{password.placeholder}}
+          formControlName={{password.id}}>
+
+            <button
+              mat-icon-button matSuffix
+              (click)="hide = !hide"
+              [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide">
+                <mat-icon>
+                  {{hide ? 'visibility_off' : 'visibility'}}
+                </mat-icon>
+            </button>
+
+        <mat-hint>Password must be six characters or more</mat-hint>
+
+        <!-- Pop up error message for invalid input -->
+        <mat-error
+          *ngIf="inputForm.get(password.id)?.hasError(password.id) &&
+          !inputForm.get(password.id)?.hasError('required')">
+          Password is required
+        </mat-error>
+
+        <mat-error
+          *ngIf="inputForm.get(password.id)?.hasError(password.id) &&
+          !inputForm.get(password.id)?.hasError('minLength')">
+          Password is too short
+        </mat-error>
+
+      </mat-form-field>
+
+
+      <mat-form-field
+      class="row"
+      appearance="fill" >
+
+      <mat-label
+        id="label-{{email.id}}" >
+        {{email.label}}
+      </mat-label>
+
+      <input
+        matInput
+        id="input-{{email.id}}"
+        type={{email.type}}
+        name={{email.id}}
+        placeholder={{email.placeholder}}
+        formControlName={{email.id}} />
+
+      <mat-hint>Please type your email</mat-hint>
+
+      <!-- Pop up error message for invalid input -->
+      <mat-error
+        *ngIf="inputForm.get(email.id)?.hasError(email.id) &&
+        !inputForm.get(email.id)?.hasError('required')">
+        Email is required, e.g. yourName@email.com
+      </mat-error>
+
+      <mat-error
+        *ngIf="inputForm.get(email.id)?.hasError('required')">
+        Invalid email input
+      </mat-error>
+
+    </mat-form-field>
+
+
+
+    <mat-form-field
+    class="row"
+    appearance="fill" >
+
+    <mat-label
+      id="label-{{email.id}}" >
+      {{email.label}}
+    </mat-label>
+
+    <input
+      matInput
+      id="input-{{email.id}}"
+      type={{email.type}}
+      name={{email.id}}
+      placeholder={{email.placeholder}}
+      formControlName={{email.id}} />
+
+    <mat-hint>Please type your email</mat-hint>
+
+    <!-- Pop up error message for invalid input -->
+    <mat-error
+      *ngIf="inputForm.get(email.id)?.hasError(email.id) &&
+      !inputForm.get(email.id)?.hasError('required')">
+      Email is required, e.g. yourName@email.com
+    </mat-error>
+
+    <mat-error
+      *ngIf="inputForm.get(email.id)?.hasError('required')">
+      Invalid email input
+    </mat-error>
+
+  </mat-form-field>
+
+
+
+  <mat-form-field
+  class="row"
+  appearance="fill" >
+
+  <mat-label
+    id="label-{{email.id}}" >
+    {{email.label}}
+  </mat-label>
+
+  <input
+    matInput
+    id="input-{{email.id}}"
+    type={{email.type}}
+    name={{email.id}}
+    placeholder={{email.placeholder}}
+    formControlName={{email.id}} />
+
+  <mat-hint>Please type your email</mat-hint>
+
+  <!-- Pop up error message for invalid input -->
+  <mat-error
+    *ngIf="inputForm.get(email.id)?.hasError(email.id) &&
+    !inputForm.get(email.id)?.hasError('required')">
+    Email is required, e.g. yourName@email.com
+  </mat-error>
+
+  <mat-error
+    *ngIf="inputForm.get(email.id)?.hasError('required')">
+    Invalid email input
+  </mat-error>
+
+</mat-form-field>
+
+
+
+      <button
+        mat-raised-button
+        color="primary"
+        class="btn btn-login btn-green"
+        type="submit"
+        [disabled]="!inputForm.valid">
+        Login
+      </button>
+
+    </fieldset>
+
+  </form>
+
+</div>
+
+<!-- <main>
 
   <div class="div__main">
 
@@ -47,4 +266,4 @@
 
     </div>
 
-  </main>
+  </main> -->

@@ -1,6 +1,6 @@
 // src/app/shared/models/User.ts
 
-export interface User {
+export interface User_ {
     _id: any;
     name: string;
     userName: string;
@@ -10,6 +10,22 @@ export interface User {
     age: number;
     phone: number;
     gender: string;
+}
+
+export interface User {
+    // _id: any;
+    name: string;
+    userName: string;
+    userEmail: string;
+    password: string;
+    userRole: string;
+    age: number;
+    phone: number;
+    gender: string;
+}
+
+export interface LikedStory {
+    newsId: any
 }
 
 export const dummyUser = {

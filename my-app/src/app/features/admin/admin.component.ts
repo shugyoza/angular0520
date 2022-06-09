@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { User, dummyUser } from '../../shared/models/User';
+import { User, User_, dummyUser } from '../../shared/models/User';
 import { UserService } from '../../core/services/user/user.service';
 import { path } from '../../shared/variables';
 
@@ -11,8 +11,8 @@ import { path } from '../../shared/variables';
 })
 export class AdminComponent implements OnInit, OnDestroy {
 
-  users: User[] = []; // mockUsers;
-  user: User = dummyUser;
+  users: User_[] = []; // mockUsers;
+  user: User_ = dummyUser;
 
     /* subscription = [] will cause the following error
   Argument of type 'Subscription' is not assignable to parameter of type 'never'.
@@ -37,20 +37,20 @@ export class AdminComponent implements OnInit, OnDestroy {
   }
 
   onDisplayUser(id: number) {
-    const doc = this.users.find((doc: User) => doc._id === id);
+    const doc = this.users.find((doc: User_) => doc._id === id);
     if (doc) this.user = doc;
     window.alert(`You clicked ${this.user ? this.user.name : ''} button. Do you want to delete this user?`)
   }
 
   displayUsers() {
-      const subs = this.userService.getUsers().subscribe(
+      const subs = this.userService.fetchUsers().subscribe(
       (response: any) => {
         // console.log('response received');
         this.users = response;
         this.user = response[0];
         // console.log(this.user);
       },
-      (error: any) => {
+      (error: Error) => {
         // console.log('Request failed with error')
         alert('Request failed with error');
       },
@@ -62,7 +62,7 @@ export class AdminComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-   this.displayUsers();
+   // this.displayUsers();
   }
 
   ngOnDestroy(): void {

@@ -1,0 +1,29 @@
+<mat-accordion class="list-liked-stories">
+
+  <mat-expansion-panel
+    (opened)="panelOpenState = true"
+    (closed)="panelOpenState = false">
+
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Liked List: {{likedStories.length - 1}} stories.
+      </mat-panel-title>
+
+      <mat-panel-description>
+        {{panelOpenState ? 'Hide List' : 'See List'}}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <div
+      *ngFor="let story of likedStories">
+      <p>{{story | json}}</p>
+    </div>
+
+  </mat-expansion-panel>
+
+</mat-accordion>
+
+<!--
+<div *ngIf="likedStories?.length">
+  <p [story]="story"></p>
+</div> -->

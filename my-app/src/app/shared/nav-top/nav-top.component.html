@@ -4,10 +4,6 @@
         Logout
     </button>
 
-    <button mat-button>
-        Like List
-    </button>
-
     <button mat-button
         (click)="onProfile()"
         class="btn"
@@ -35,5 +31,10 @@
         id="btn-admin" >
         Admin
     </button>
+
+    <app-liked-stories
+        *ngIf="likedStories"
+        [likedStories]="likedStories">
+    </app-liked-stories>
 
 </mat-toolbar>
