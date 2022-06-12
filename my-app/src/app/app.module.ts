@@ -7,12 +7,12 @@ import { HttpClientModule } from '@angular/common/http';
 
 // LOCAL MODULES
 import { AppRoutingModule } from './app-routing.module';
-import { LoginModule } from './features/login/login.module';
-import { RegisterModule } from './features/register/register.module';
-import { SettingsModule } from './features/settings/settings.module';
-import { ProfileModule } from './features/profile/profile.module';
-import { AdminModule } from './features/admin/admin.module';
-import { NewsFeedModule } from './features/news-feed/news-feed.module';
+// import { LoginModule } from './features/login/login.module';
+// import { RegisterModule } from './features/register/register.module';
+// import { SettingsModule } from './features/settings/settings.module';
+// import { ProfileModule } from './features/profile/profile.module';
+// import { AdminModule } from './features/admin/admin.module';
+// import { NewsFeedModule } from './features/news-feed/news-feed.module'; // removed for lazy loading
 import { SharedModule } from './shared/shared.module';
 import { AngularMaterialModule } from './shared/material.module';
 
@@ -41,12 +41,12 @@ import { AuthenticationService } from './core/services/authentication/authentica
 
     BrowserAnimationsModule,
 
-    LoginModule,
-    RegisterModule,
-    SettingsModule,
-    ProfileModule,
-    AdminModule,
-    NewsFeedModule,
+    // LoginModule,
+    // RegisterModule,
+    // SettingsModule,
+    // ProfileModule,
+    // AdminModule,
+    // NewsFeedModule, //removed for lazy loading
     SharedModule,
     AngularMaterialModule,
 
@@ -62,7 +62,7 @@ import { AuthenticationService } from './core/services/authentication/authentica
 })
 export class AppModule {}
 
-/*
+/* Moved to AppRoutingModule
     // apply the RouterModule here to connect the path and corresponding component
     RouterModule.forRoot([
     ])

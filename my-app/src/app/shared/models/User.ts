@@ -29,7 +29,7 @@ export interface LikedStory {
 }
 
 export const dummyUser = {
-    _id: 0,
+    _id: '6293c98f5415d0f15f16aec2',
     name: 'Name Placeholder',
     userName: 'userName',
     userEmail: 'userEmail@email.com',

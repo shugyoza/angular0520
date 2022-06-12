@@ -1,3 +1,15 @@
+June 10, 2022
+
+- Got an error in browser when trying to implement Lazy Loading.
+
+```
+core.mjs:6494 ERROR Error: Uncaught (in promise): Error: BrowserModule has already been loaded. If you need access to common directives such as NgIf and NgFor from a lazy loaded module, import CommonModule instead. Error: BrowserModule has already been loaded. If you need access to common directives such as NgIf and NgFor from a lazy loaded module, import CommonModule instead.
+```
+
+Cause: Duplicated BrowserAnimationsModule import (second import in the AngularMaterialModule)
+Solution: Removed the BrowserAnimationsModule import in the AngularMaterialModule, and leave the other one in the AppModule.
+Ref.: https://stackoverflow.com/questions/45975675/lazy-loading-browsermodule-has-already-been-loaded
+
 May 24, 2022
 
 ```

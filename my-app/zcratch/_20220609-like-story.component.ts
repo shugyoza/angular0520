@@ -1,7 +1,8 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
-import { News, News_, LikedId } from '../../../../shared/models/News';
+import { LikedId } from '../../../../shared/models/News';
+import { News, News_, dummyNews } from '../../../../shared/models/News';
 import { User, User_, dummyUser } from '../../../../shared/models/User';
 import { UserService } from 'src/app/core/services/user/user.service';
 import { StoriesService } from '../../../../core/services/stories/stories.service';
@@ -25,8 +26,10 @@ export class LikeStoryComponent implements OnInit {
     // this is temporary array in replace of array that's suppose to be in User model
     likedStories: any[] = [];
 
+    users: User_[] = [];
     _user!: User_;
     user!: User;
+    user_id!: any;
     subscriptions$: any = [];
 
     inputForm = new FormGroup({
@@ -41,15 +44,28 @@ export class LikeStoryComponent implements OnInit {
 
   onLike() {
 
-      // grab the user (with ._id) from subject
-      this.subscriptions$.push(
-        this.authentication.user$
-            .subscribe({
-              next: (response: User_) => this._user = response,
-              error: (err: Error) => console.error(err),
-              complete: () => console.log('LikeStory subscribed to user$')
-            })
-      )
+      // subscribe to users array already populated and emitted on login
+      const usersObserver = {
+        next: (users: User_[]) => {
+          this.users = users;
+        },
+        error: (err: Error) => console.log('onLike() fails with: ', err),
+        complete: () => console.log('onLike() completed')
+      }
+      this.subscriptions$.push(this.userService.users$.subscribe(usersObserver));
+
+      // subscribe to the user emitted on login (without ._id)
+      const userObserver = {
+        next: (user: User) => {
+          this.user = user;
+        },
+        error: (err: Error) => console.log('onLike() fails with: ', err),
+        complete: () => console.log('onLike() completed')
+      }
+      this.subscriptions$.push(this.authentication.user$.subscribe(userObserver));
+
+      // grab the user (with ._id) with helper callback
+      this._user = this.userService.findUserIDByEmail(this.user.userEmail, 'userEmail', this.users);
 
       // push the user._id into the story.likedIdList (create a new copy)
       this.story.likedIdList = [...this.story.likedIdList, {userId: this._user._id}];
@@ -74,7 +90,7 @@ export class LikeStoryComponent implements OnInit {
         }
       }
       // emit the newly updated stories
-      this.storiesService.stories$.next(this.stories);
+      // this.storiesService.stories$.next(this.stories);
 
       // emit the newly list of likedStories
       this.userService.likedStories$.next(this.likedStories);

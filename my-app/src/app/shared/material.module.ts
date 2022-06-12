@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
@@ -37,7 +37,10 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 @NgModule( {
     imports: [
         CommonModule,
-        BrowserAnimationsModule,
+        /* On activated Lazy Loading feature, there should only be one BrowserModule, this module,
+        HttpClientModule and HttpModule, which have to be imported in the AppModule.
+        https://stackoverflow.com/questions/45975675/lazy-loading-browsermodule-has-already-been-loaded
+        // BrowserAnimationsModule, */
         MatCheckboxModule,
         MatCheckboxModule,
         MatButtonModule,

@@ -24,3 +24,21 @@ export class LikedStoryList implements OnInit, OnDestroy, OnChanges {
         this.subscriptions.forEach((subscription) => subscription.unsubscribe());
     }
 }
+
+/*
+let dummy = [{newsId: '6240fd4fe3aa9b31f24002bf'},
+{newsId: '6240fd4fe3aa9b31f24002bf'},
+{newsId: '6240fd4fe3aa9b31f24002bf'},
+{newsId: '6240fd4fe3aa9b31f24002bf'},
+{newsId: '6240fd4fe3aa9b31f24002bf'},
+{newsId: '6240fd4fe3aa9b31f24002bf'},
+{newsId: '6240fd4fe3aa9b31f24002bf'},
+{newsId: '6240fd4fe3aa9b31f24002bf'},
+{newsId: '6240fd4fe3aa9b31f24002bf'},
+{newsId: '6240fd4fe3aa9b31f24002bf'},
+{newsId: '6240fd4fe3aa9b31f24002bf'},
+{newsId: '6240fd4fe3aa9b31f24002bf'},
+{newsId: '6240fd4fe3aa9b31f24002bf'},
+{newsId: '6240fd4fe3aa9b31f24002bf'},
+{newsId: '6240fd4fe3aa9b31f24002bf'}]
+*/

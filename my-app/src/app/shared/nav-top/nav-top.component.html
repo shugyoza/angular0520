@@ -26,15 +26,16 @@
     </button>
 
     <button mat-button
+        *ngIf="user && user.userRole === 'admin'"
         (click)="onAdmin()"
         class="btn"
         id="btn-admin" >
         Admin
     </button>
 
-    <app-liked-stories
+    <!-- <app-liked-stories
         *ngIf="likedStories"
         [likedStories]="likedStories">
-    </app-liked-stories>
+    </app-liked-stories> -->
 
 </mat-toolbar>

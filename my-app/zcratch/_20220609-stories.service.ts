@@ -2,7 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Observable
-  , ReplaySubject
+  , of
+  , BehaviorSubject
+  , AsyncSubject
+  , from
   , Subject } from 'rxjs';
 
 import { News, News_, dummyNews } from '../../../shared/models/News';
@@ -14,8 +17,8 @@ import { url } from '../../../shared/utils/url';
 })
 export class StoriesService {
 
-  public stories$: Subject<News_[]> = new ReplaySubject<News_[]>()
-  public story$: Subject<News_> = new ReplaySubject<News_>()
+  public stories$ = new BehaviorSubject([dummyNews])
+  public story$ = new BehaviorSubject(dummyNews)
   // newsId given is a valid MongoID, BUT likedStories$ MUST be reassigned a new TRUE and VALID value before rendering
 
   constructor(private http: HttpClient) { }
@@ -39,6 +42,7 @@ export class StoriesService {
             const filteredData = this.filterStories(goodData, keyword);
             this.stories$.next(filteredData)
           }
+
         },
         (error: Error) => console.error('fetchStories() request fails with: ', error),
         () => console.log('fetchStories() completed')

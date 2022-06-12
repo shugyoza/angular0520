@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ReplaySubject, Subject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
-import { User_, LikedStory } from 'src/app/shared/models/User';
+import { User_, dummyUser } from 'src/app/shared/models/User';
 import { url } from 'src/app/shared/utils/url';
 
 @Injectable({
@@ -11,9 +11,9 @@ import { url } from 'src/app/shared/utils/url';
 
 export class UserService {
   url = url;
-  users$: Subject<User_[]> = new ReplaySubject<User_[]>();
-  user$: Subject<User_> = new ReplaySubject<User_>();
-  likedStories$: Subject<LikedStory[]> = new ReplaySubject<LikedStory[]>()
+  users$ = new BehaviorSubject([dummyUser]);
+  user$ = new BehaviorSubject(dummyUser);
+  likedStories$ = new BehaviorSubject([{newsId: '"624aa7beb853a430a40a1592"'}])
 
   constructor(private http: HttpClient) { }
 

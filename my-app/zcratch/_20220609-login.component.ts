@@ -1,8 +1,9 @@
 import { Component, OnInit, OnChanges, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked} from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { BehaviorSubject } from 'rxjs';
 
-import { User_ } from '../../shared/models/User';
+import { User, User_, dummyUser } from '../../shared/models/User';
 import { AuthenticationService } from '../../core/services/authentication/authentication.service';
 import { UserService } from '../../core/services/user/user.service';
 // import { validateCredential, AsyncValidatorFn } from '../../core/services/authentication/credential.validator';
@@ -48,15 +49,15 @@ export class LoginComponent implements OnInit {
 
   // method to subscribe to who is the logged in user
   subscribeUser(): void {
-    this.subscriptions$.push(
-
-      this.authentication.user$
-          .subscribe(
-            (response: User_) => this.user = response,
-            (error: any) => console.log('subscribeUser() fails: ', error),
-            () => console.log('subscribeUser() completed')
-          )
+    const subscription$ = this.authentication.user$.subscribe(
+      (response: User_) => {
+        this.user = response;
+        console.log('subscribeUser() receives and emit: ', this.user);
+      },
+      (error: any) => console.log('subscribeUser() fails: ', error),
+      () => console.log('subscribeUser() completed')
     )
+    this.subscriptions$.push(subscription$);
   }
 
   // Method to login with the given userEmail and password
@@ -64,21 +65,26 @@ export class LoginComponent implements OnInit {
     const email = this.inputForm.value.email;
     const password = this.inputForm.value.password;
 
-    this.subscriptions$.push(
-      this.authentication.checkUserEmail(email)
-          .subscribe({
-            next: (response: boolean) => {
-                    if (response === false) alert('Invalid email or password')
-                    // TODO: Create directive to show the error on this login page.');
-                    else {
-                      this.authentication.fetchUser(email, password);
-                      this.router.navigate(['feed']);
-                    }
-            },
-            error: (err: Error) => console.log('Request for userEmail check failed with error.', err),
-            complete: () => console.log('Request for userEmail check completed.')
-          })
-    )
+    const subscription$ = this.authentication.checkUserEmail(email).subscribe(
+      // callback for success response
+      (response: boolean) => {
+        console.log('Response for userEmail check received.', response);
+        if (response === false) {
+          alert('Invalid email or password')
+          // console.log('Invalid userEmail! TODO: Create directive to show the error on this login page.');
+        }
+        else {
+          this.authentication.fetchUser(email, password);
+          this.router.navigate(['feed']);
+        }
+      },
+      // callback for thrown error
+      (error: any) => console.log('Request for userEmail check failed with error.', error),
+      // optional callback
+      () => console.log('Request for userEmail check completed.')
+    );
+    // push this observable to the array. We'll unsubscribe onDestroy.
+    this.subscriptions$.push(subscription$);
   }
 
   ngOnInit(): void { }
@@ -102,4 +108,8 @@ export class LoginComponent implements OnInit {
   ngAfterViewChecked() {
     // console.log('ngAfterViewChecked')
   }
+
+
+
+
 }
