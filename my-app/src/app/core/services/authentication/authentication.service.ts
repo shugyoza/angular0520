@@ -14,6 +14,8 @@ import { url } from '../../../shared/utils/url';
 export class AuthenticationService {
   // ReplaySubject has similar trait with BehaviorSubject, and does not need initial value
   public user$: Subject<User_> = new ReplaySubject<User_>();
+  public isLoggedIn: boolean = false;
+  public isAdmin: boolean = false;
 
   constructor(private http: HttpClient) { }
 
@@ -48,6 +50,8 @@ export class AuthenticationService {
           const jwtToken = response.bearerToken;
           const decoded: User_ = jwtDecode(jwtToken);
           this.user$.next(decoded);
+          this.isLoggedIn = true;
+          if (response.userRole === 'admin') this.isAdmin = true;
         },
         error: (err: Error) => console.error('fetchUser() fails: ', err),
         complete: () => console.log('fetchUser() completed')
@@ -59,6 +63,16 @@ export class AuthenticationService {
     return this.http
       .post<User_>
         (`${url.api.base}/${url.api.register.route}/${url.api.register.path.createUser}`, { userEmail, userName, password })
+  }
+
+  // method to retrieve login status of a user
+  checkLoggedIn(): boolean {
+    return this.isLoggedIn;
+  }
+
+  // method to retrieve
+  checkIsAdmin(): boolean {
+    return this.isAdmin;
   }
 
 }

@@ -8,12 +8,15 @@ import { ProfileComponent } from './features/profile/profile.component';
 import { RegisterComponent } from './features/register/register.component';
 import { ErrPageNotFoundComponent } from './shared/err-page-not-found/err-page-not-found.component';
 
+import { CanActivateGuardService } from './core/services/guards/can-activate-guard/can-activate-guard.service';
+
 const routes: Routes = [
   {
     path: 'feed',
     component: NewsFeedComponent,
     // children: [ ]  // refactored into lazy loading
-    loadChildren: () => import('./features/news-feed/news-feed.module').then((m) => m.NewsFeedModule)
+    loadChildren: () => import('./features/news-feed/news-feed.module').then((m) => m.NewsFeedModule),
+    canActivate: [ CanActivateGuardService ]
   },
   {
     path: 'profile',

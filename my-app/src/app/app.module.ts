@@ -23,7 +23,7 @@ import { AppComponent } from './app.component';
 import { UserService } from './core/services/user/user.service';
 import { StoriesService } from './core/services/stories/stories.service';
 import { AuthenticationService } from './core/services/authentication/authentication.service';
-
+import { CanActivateGuardService } from './core/services/guards/can-activate-guard/can-activate-guard.service';
 // import { ColorRandomizerDirective } from './shared/color-randomizer.directive';
 
 @NgModule({
@@ -54,9 +54,10 @@ import { AuthenticationService } from './core/services/authentication/authentica
     AppRoutingModule,
   ],
   providers: [
-    UserService,
-    StoriesService,
-    AuthenticationService,
+      UserService
+    , StoriesService
+    , AuthenticationService
+    , CanActivateGuardService
   ],
   bootstrap: [AppComponent]
 })

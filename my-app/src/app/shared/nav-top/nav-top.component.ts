@@ -58,7 +58,7 @@ export class NavTopComponent implements OnInit {
   }
 
   onFeed() {
-    this.router.navigate(['profile']);
+    this.router.navigate(['feed']);
   }
 
   onSettings() {
