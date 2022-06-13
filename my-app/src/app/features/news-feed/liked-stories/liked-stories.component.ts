@@ -25,6 +25,38 @@ import { AuthenticationService } from '../../../core/services/authentication/aut
 })
 
 export class LikedStoriesComponent implements OnInit, OnDestroy {
+  panelOpenState = false;
+  likedStories: any[] = [];
+  @Input() stories: News[] = [];
+  user!: User;
+  subscriptions$: any = [];
+
+  constructor(
+      private userService: UserService
+  ) { }
+
+  ngOnInit() {
+      this.getLikedStories();
+  }
+
+  ngOnDestroy() { }
+
+  // method to grab liked newslist from Subject
+  getLikedStories() {
+
+      const observer = {
+          next: (likedStories: any) => this.likedStories = likedStories,
+          error: (err: Error) => console.log('getLikedStories fails with: ', err),
+          complete: () => console.log('getLikedStories() grabbed likedStories.')
+      }
+      this.subscriptions$.push(this.userService.likedStories$.subscribe(observer));
+
+  }
+}
+
+/*
+{
+
   users: User_[] = [];
   _user!: User_;
   user!: User;
@@ -55,8 +87,15 @@ export class LikedStoriesComponent implements OnInit, OnDestroy {
     this.subscriptions$.forEach((subscription$) => subscription$.unsubscribe());
   }
 
-}
+  // method to grab liked stories from Subject
+  getLikedStories() {
+    const observer = {
+      next: (likedStories: )
+    }
+  }
 
+}
+ */
 
 
 /*

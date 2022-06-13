@@ -38,8 +38,8 @@ export class LikeStoryComponent implements OnInit {
       private authentication: AuthenticationService,
       private userService: UserService) { }
 
-
-  onLike() {
+  onClick() {
+      const checkboxValue = this.inputForm.value.like;
 
       // grab the user (with ._id) from subject
       this.subscriptions$.push(
@@ -51,10 +51,6 @@ export class LikeStoryComponent implements OnInit {
             })
       )
 
-      // push the user._id into the story.likedIdList (create a new copy)
-      this.story.likedIdList = [...this.story.likedIdList, {userId: this._user._id}];
-      console.log('user._id added to the story.likedIdList: ', this.story.likedIdList);
-
       // grab the likedStories array from Subject
       const likedStoriesObserver = {
         next: (likedStories: any) => this.likedStories = likedStories,
@@ -63,9 +59,28 @@ export class LikeStoryComponent implements OnInit {
       }
       this.subscriptions$.push(this.userService.likedStories$.subscribe(likedStoriesObserver));
 
-      // push the story._id into the user's likedList (currently stored in this.likedStories)
-      this.likedStories = [...this.likedStories, {newsId: this.story._id}];
-      console.log('story._id added into the user"s likedStories list: ', this.likedStories);
+
+
+      // control flow: if checkbox is false (not liked), push the _id from both list
+      // // if checkbox value is true (liked) delete the _id from both list
+      if (checkboxValue === false) {
+          // push the user's ._id into the stories.likedIdList (create new copy`)
+          this.story.likedIdList = [...this.story.likedIdList, {userId: this._user._id}]
+          console.log('user._id added to story"s likedId list: ', [...this.story.likedIdList, {userId: this._user._id}]);
+
+          // push the news._id into the user's likedList (currently stored in this.likedNew)
+          this.likedStories = [...this.likedStories, { newsId: this.story._id}];
+          console.log('story._id added to user"s likedStories list: ', this.likedStories);
+      }
+      else {
+          // remove user's _id from news.likedIdList (create new copy)
+          this.story.likedIdList = this.story.likedIdList.filter((doc) => doc.userId !== this._user._id);
+          console.log('user._id', this._user._id, 'removed from story"s likedId list: ', this.story.likedIdList);
+
+          // remove story._id from user's liked list (create new copy)
+          this.likedStories = this.likedStories.filter((doc) => doc.newsId !== this.story._id);
+          console.log('story._id', this.story._id, 'removed from user"s liked list: ', this.likedStories);
+      }
 
       // update the stories with the updated story
       for (let i = 0; i < this.stories.length; i++) {

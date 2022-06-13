@@ -1,6 +1,7 @@
 <mat-toolbar color="primary">
 
-    <button mat-button>
+    <button mat-button
+        *ngIf="user">
         Logout
     </button>
 
@@ -32,8 +33,11 @@
         Admin
     </button>
 
+    <app-liked-stories
+        *ngIf="likedStories">
+    </app-liked-stories>
 
-
+<!-- this is the proper button for admin -->
     <!-- <button mat-button
         *ngIf="user && user.userRole === 'admin'"
         (click)="onAdmin()"
