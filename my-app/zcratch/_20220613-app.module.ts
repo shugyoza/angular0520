@@ -7,6 +7,12 @@ import { HttpClientModule } from '@angular/common/http';
 
 // LOCAL MODULES
 import { AppRoutingModule } from './app-routing.module';
+// import { LoginModule } from './features/login/login.module';
+// import { RegisterModule } from './features/register/register.module';
+// import { SettingsModule } from './features/settings/settings.module';
+// import { ProfileModule } from './features/profile/profile.module';
+// import { AdminModule } from './features/admin/admin.module';
+// import { NewsFeedModule } from './features/news-feed/news-feed.module'; // removed for lazy loading
 import { SharedModule } from './shared/shared.module';
 import { AngularMaterialModule } from './shared/material.module';
 
@@ -33,8 +39,15 @@ import { CanLoadGuardService } from './core/services/guards/can-load-guard/can-l
     // backend #02. import HttpClientModule after Browser Module
     // // else we'll get an error
     HttpClientModule,
+
     BrowserAnimationsModule,
 
+    // LoginModule,
+    // RegisterModule,
+    // SettingsModule,
+    // ProfileModule,
+    // AdminModule,
+    // NewsFeedModule, //removed for lazy loading
     SharedModule,
     AngularMaterialModule,
 
