@@ -19,6 +19,7 @@ import { StoriesService } from './core/services/stories/stories.service';
 import { AuthenticationService } from './core/services/authentication/authentication.service';
 import { CanActivateGuardService } from './core/services/guards/can-activate-guard/can-activate-guard.service';
 import { CanLoadGuardService } from './core/services/guards/can-load-guard/can-load-guard.service';
+import { PreloadingStrategyService } from './core/services/preloading-strategy/preloading-strategy.service';
 // import { ColorRandomizerDirective } from './shared/color-randomizer.directive';
 
 @NgModule({
@@ -47,6 +48,7 @@ import { CanLoadGuardService } from './core/services/guards/can-load-guard/can-l
     , AuthenticationService
     , CanActivateGuardService
     , CanLoadGuardService
+    , PreloadingStrategyService
   ],
   bootstrap: [AppComponent]
 })

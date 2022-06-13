@@ -11,6 +11,7 @@ import { ErrPageNotFoundComponent } from './shared/err-page-not-found/err-page-n
 
 import { CanActivateGuardService } from './core/services/guards/can-activate-guard/can-activate-guard.service';
 import { CanLoadGuardService } from './core/services/guards/can-load-guard/can-load-guard.service';
+import { PreloadingStrategyService } from './core/services/preloading-strategy/preloading-strategy.service';
 
 const routes: Routes = [
   {
@@ -18,7 +19,8 @@ const routes: Routes = [
     component: NewsFeedComponent,
     // children: [ ]  // refactored into lazy loading
     loadChildren: () => import('./features/news-feed/news-feed.module').then((m) => m.NewsFeedModule),
-    canActivate: [ CanActivateGuardService ]
+    canActivate: [ CanActivateGuardService ],
+    data: { preload: true, delay: 10}
   },
   {
     path: 'profile',
@@ -30,7 +32,8 @@ const routes: Routes = [
     path: 'admin',
     component: AdminComponent,
     loadChildren: () => import('./features/admin/admin.module').then((m) => m.AdminModule),
-    canLoad: [CanLoadGuardService]
+    canLoad: [CanLoadGuardService],
+    data: { preload: true, delay: 12}
   },
   {
     path: 'settings',
