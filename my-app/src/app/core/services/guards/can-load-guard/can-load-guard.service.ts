@@ -4,9 +4,7 @@ import {
   , Router
   , CanLoad
 } from'@angular/router';
-import { animationFrameScheduler } from 'rxjs';
 import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
-import { User_ } from 'src/app/shared/models/User';
 
 @Injectable({
   providedIn: 'root'
