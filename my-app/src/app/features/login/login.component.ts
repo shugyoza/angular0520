@@ -68,11 +68,11 @@ export class LoginComponent implements OnInit {
       this.authentication.checkUserEmail(email)
           .subscribe({
             next: (response: boolean) => {
-                    if (response === false) alert('Invalid email or password')
+                    if (response === false) console.log('Invalid email or password')
                     // TODO: Create directive to show the error on this login page.');
                     else {
                       this.authentication.fetchUser(email, password);
-                      this.router.navigate(['feed']);
+                      // this.router.navigate(['feed']);
                     }
             },
             error: (err: Error) => console.log('Request for userEmail check failed with error.', err),

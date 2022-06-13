@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { Observable
   , ReplaySubject
   , Subject } from 'rxjs';
@@ -17,7 +18,9 @@ export class AuthenticationService {
   public isLoggedIn: boolean = false;
   public isAdmin: boolean = false;
 
-  constructor(private http: HttpClient) { }
+  constructor(
+      private http: HttpClient
+    , private _router: Router) { }
 
   // method to check if a given _id is valid of a User_, returns a User_ observable
   checkID(userID: string): Observable<User_> {
@@ -52,6 +55,7 @@ export class AuthenticationService {
           this.user$.next(decoded);
           this.isLoggedIn = true;
           if (response.userRole === 'admin') this.isAdmin = true;
+          this._router.navigate(['feed']);
         },
         error: (err: Error) => console.error('fetchUser() fails: ', err),
         complete: () => console.log('fetchUser() completed')
@@ -63,16 +67,6 @@ export class AuthenticationService {
     return this.http
       .post<User_>
         (`${url.api.base}/${url.api.register.route}/${url.api.register.path.createUser}`, { userEmail, userName, password })
-  }
-
-  // method to retrieve login status of a user
-  checkLoggedIn(): boolean {
-    return this.isLoggedIn;
-  }
-
-  // method to retrieve
-  checkIsAdmin(): boolean {
-    return this.isAdmin;
   }
 
 }

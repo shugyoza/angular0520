@@ -1,32 +1,32 @@
 import { Injectable } from '@angular/core';
 import {
     Router
-  , CanActivate
+  , CanLoad
   , ActivatedRouteSnapshot
   , RouterStateSnapshot
   , UrlTree
-} from '@angular/router';
+} from'@angular/router';
 import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class CanActivateGuardService implements CanActivate {
+export class CanLoadGuardService implements CanLoadGuardService {
 
   constructor(
-      private _router: Router
+    private _router: Router
     , private authenticationService: AuthenticationService
   ) { }
 
-  canActivate(
+  canLoad(
       route: ActivatedRouteSnapshot
     , state: RouterStateSnapshot): boolean | UrlTree {
 
-      if (!this.authenticationService.isLoggedIn) {
-        alert('You have not logged in, redirected to Login.');
+      if (!this.authenticationService.isAdmin) {
+        alert('You are not an admin, redirected to Feed.');
 
-        this._router.navigate(['login'], { queryParams: { retUrl: route.url } });
+        this._router.navigate(['feed'], { queryParams: {retUrl: route.url } });
         return false;
       }
       return true;

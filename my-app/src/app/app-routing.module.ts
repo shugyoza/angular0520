@@ -9,6 +9,7 @@ import { RegisterComponent } from './features/register/register.component';
 import { ErrPageNotFoundComponent } from './shared/err-page-not-found/err-page-not-found.component';
 
 import { CanActivateGuardService } from './core/services/guards/can-activate-guard/can-activate-guard.service';
+import { CanLoadGuardService } from './core/services/guards/can-load-guard/can-load-guard.service';
 
 const routes: Routes = [
   {
@@ -21,12 +22,14 @@ const routes: Routes = [
   {
     path: 'profile',
     component: ProfileComponent,
-    loadChildren: () => import('./features/profile/profile.module').then((m) => m.ProfileModule)
+    loadChildren: () => import('./features/profile/profile.module').then((m) => m.ProfileModule),
+    canActivate: [CanActivateGuardService]
   },
   {
     path: 'admin',
     component: AdminComponent,
-    loadChildren: () => import('./features/admin/admin.module').then((m) => m.AdminModule)
+    loadChildren: () => import('./features/admin/admin.module').then((m) => m.AdminModule),
+    canActivate: [CanActivateGuardService, CanLoadGuardService]
   },
   {
     path: 'login',
