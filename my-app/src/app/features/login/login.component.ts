@@ -1,5 +1,4 @@
 import { Component, OnInit, OnChanges, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked} from '@angular/core';
-import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { User_ } from '../../shared/models/User';
@@ -28,7 +27,6 @@ export class LoginComponent implements OnInit {
   subscriptions$: any[] = []; // array to store Observables
 
   constructor(
-    private router: Router,
     private authentication: AuthenticationService,
     private userService: UserService // we might not need this. last mission is to redirect to the corresponding page.
     ) { }
@@ -72,7 +70,6 @@ export class LoginComponent implements OnInit {
                     // TODO: Create directive to show the error on this login page.');
                     else {
                       this.authentication.fetchUser(email, password);
-                      // this.router.navigate(['feed']);
                     }
             },
             error: (err: Error) => console.log('Request for userEmail check failed with error.', err),

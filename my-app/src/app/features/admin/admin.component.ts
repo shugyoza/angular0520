@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { User, User_, dummyUser } from '../../shared/models/User';
-import { UserService } from '../../core/services/user/user.service';
+import { AuthenticationService } from '../../core/services/authentication/authentication.service';
+import { UserService } from 'src/app/core/services/user/user.service';
 import { path } from '../../shared/variables';
 
 @Component({
@@ -19,14 +20,29 @@ export class AdminComponent implements OnInit, OnDestroy {
   We have to define the type.
   https://stackoverflow.com/questions/52423842/what-is-not-assignable-to-parameter-of-type-never-error-in-typescript
   */
-  subscriptions: any[] = [];
 
   newsFeedPath = path.feed;
   settingsPath = path.settings;
   profilePath = path.profile;
   adminPath = path.admin;
 
-  constructor(private userService: UserService) {};
+  subscriptions$: any = [];
+
+  constructor(
+      private authentication: AuthenticationService
+    , private userService: UserService
+    ) {};
+
+  ngOnInit(): void {
+    this.subscribeUser();
+    this.userService.fetchUsers();
+    this.subscribeUsers;
+  }
+
+  ngOnDestroy(): void {
+    // when the component get's destroyed, unsubscribe all the subscriptions
+    this.subscriptions$.forEach((subscription$: any) => subscription$.unsubscribe())
+  }
 
   onDeleteUser(user: User) {
     window.alert(`User to delete: ${user.name}`)
@@ -42,32 +58,30 @@ export class AdminComponent implements OnInit, OnDestroy {
     window.alert(`You clicked ${this.user ? this.user.name : ''} button. Do you want to delete this user?`)
   }
 
-  displayUsers() {
-      const subs = this.userService.fetchUsers().subscribe(
-      (response: any) => {
-        // console.log('response received');
+  // method to subscribe to who is the logged in user
+  subscribeUser(): void {
+    const observer = {
+      next: (response: User_) => {
+        this.user = response;
+        console.log('admin.subscribeUser()', this.user, this.authentication.isLoggedIn, this.authentication.isAdmin)
+      },
+      error: (err: Error) => console.error('admin.subscribeUser() fails: ', err),
+      complete: () => console.log('admin.subscribeUser() completed')
+    }
+    this.subscriptions$.push(this.authentication.user$.subscribe(observer));
+  }
+
+  // method to subscribe to who is the logged in user
+  subscribeUsers(): void {
+    const observer = {
+      next: (response: User_[]) => {
         this.users = response;
-        this.user = response[0];
-        // console.log(this.user);
+        console.log('admin.subscribeUsers()', this.users)
       },
-      (error: Error) => {
-        // console.log('Request failed with error')
-        alert('Request failed with error');
-      },
-      () => {
-        // console.log('Request completed')
-      })
-      // keep track of subscriptions to unsubscribe on destroying the component
-      this.subscriptions.push(subs);
-  }
-
-  ngOnInit(): void {
-   // this.displayUsers();
-  }
-
-  ngOnDestroy(): void {
-    // when the component get's destroyed, unsubscribe all the subscriptions
-    this.subscriptions.forEach((sub) => sub.unsubscribe())
+      error: (err: Error) => console.error('admin.subscribeUsers() fails: ', err),
+      complete: () => console.log('admin.subscribeUsers() completed')
+    }
+    this.subscriptions$.push(this.userService.users$.subscribe(observer));
   }
 
 }

@@ -5,6 +5,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { User, User_, dummyUser } from '../../shared/models/User';
 import { form } from '../../shared/utils/form';
 import { url } from '../../shared/utils/url';
+import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
 
 @Component({
   selector: 'app-profile',
@@ -25,7 +26,10 @@ export class ProfileComponent implements OnInit {
   user: User_ = dummyUser;
   users: User_[] = [];
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(
+      private _route: ActivatedRoute
+    , private authenticationService: AuthenticationService
+    ) { }
 
   inputForm = new FormGroup({
     username: new FormControl(
@@ -39,7 +43,8 @@ export class ProfileComponent implements OnInit {
       ),
       email: new FormControl(
         this.email.defaultValue,
-        [ Validators.required ]
+        [ Validators.required,
+          Validators.email ]
       ),
       gender: new FormControl(
         '',
@@ -58,7 +63,10 @@ export class ProfileComponent implements OnInit {
   onSave() {}
 
   ngOnInit(): void {
+    console.log(66, this.authenticationService.isLoggedIn)
 
+
+    /*
     // First get the user id from the current route
     const routeParams = this.route.snapshot.paramMap;
     const id = Number(routeParams.get('id'));
@@ -68,7 +76,7 @@ export class ProfileComponent implements OnInit {
 
     const doc = this.users.find((doc: User_) => doc._id === id);
     if (doc) this.user = doc;
-
+  */
   }
 
 }

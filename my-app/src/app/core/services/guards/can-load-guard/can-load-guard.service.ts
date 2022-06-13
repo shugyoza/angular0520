@@ -1,34 +1,42 @@
 import { Injectable } from '@angular/core';
 import {
-    Router
+    Route
+  , Router
   , CanLoad
-  , ActivatedRouteSnapshot
-  , RouterStateSnapshot
-  , UrlTree
 } from'@angular/router';
+import { animationFrameScheduler } from 'rxjs';
 import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
+import { User_ } from 'src/app/shared/models/User';
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class CanLoadGuardService implements CanLoadGuardService {
+export class CanLoadGuardService implements CanLoad {
 
   constructor(
     private _router: Router
     , private authenticationService: AuthenticationService
   ) { }
 
-  canLoad(
-      route: ActivatedRouteSnapshot
-    , state: RouterStateSnapshot): boolean | UrlTree {
+  canLoad(route: Route): boolean {
 
-      if (!this.authenticationService.isAdmin) {
-        alert('You are not an admin, redirected to Feed.');
+    let url: string | undefined = route.path;
+    console.log('URL: ', url);
 
-        this._router.navigate(['feed'], { queryParams: {retUrl: route.url } });
-        return false;
+    if (!url) return false;
+
+    if (url === 'admin' && this.authenticationService.isLoggedIn === false) {
+      alert('You have not logged in, redirected to Login.');
+      this._router.navigate(['login'], { queryParams: { retUrl: url } });
+      return false;
       }
-      return true;
+
+    if (url === 'admin' && this.authenticationService.isAdmin === false) {
+      alert('You are not an admin, redirected to Feed.');
+      this._router.navigate(['feed'], { queryParams: { retUrl: url } });
+      return false;
+      }
+    return true;
   }
 }

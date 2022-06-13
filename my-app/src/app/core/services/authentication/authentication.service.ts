@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable
+  , BehaviorSubject
   , ReplaySubject
   , Subject } from 'rxjs';
 import jwtDecode from 'jwt-decode';
@@ -17,6 +18,9 @@ export class AuthenticationService {
   public user$: Subject<User_> = new ReplaySubject<User_>();
   public isLoggedIn: boolean = false;
   public isAdmin: boolean = false;
+  public isLoggedIn$ = new BehaviorSubject(false);
+  public isAdmin$ = new BehaviorSubject(false);
+
 
   constructor(
       private http: HttpClient
@@ -54,7 +58,11 @@ export class AuthenticationService {
           const decoded: User_ = jwtDecode(jwtToken);
           this.user$.next(decoded);
           this.isLoggedIn = true;
-          if (response.userRole === 'admin') this.isAdmin = true;
+          this.isLoggedIn$.next(true);  // do we need observable or not as our tracker?
+          if (response.userRole === 'admin') {
+            this.isAdmin = true;
+            this.isAdmin$.next(true); // do we need observable or not as our tracker?
+            }
           this._router.navigate(['feed']);
         },
         error: (err: Error) => console.error('fetchUser() fails: ', err),

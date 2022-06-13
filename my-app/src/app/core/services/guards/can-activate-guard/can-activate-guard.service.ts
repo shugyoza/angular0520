@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {
-    Router
+    Route
+  , Router
   , CanActivate
   , ActivatedRouteSnapshot
   , RouterStateSnapshot
@@ -23,12 +24,13 @@ export class CanActivateGuardService implements CanActivate {
       route: ActivatedRouteSnapshot
     , state: RouterStateSnapshot): boolean | UrlTree {
 
-      if (!this.authenticationService.isLoggedIn) {
+      if (this.authenticationService.isLoggedIn === false) {
         alert('You have not logged in, redirected to Login.');
 
         this._router.navigate(['login'], { queryParams: { retUrl: route.url } });
         return false;
       }
       return true;
-  }
+    }
+
 }

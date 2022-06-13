@@ -32,7 +32,7 @@ export class NavTopComponent implements OnInit {
     , private authentication: AuthenticationService
     ) { }
 
-  getUserRole(): void {
+  getUser(): void {
     const observer = {
       next: (user: User_) => this.user = user,
       error: (err: Error) => console.log('getUserRole fails: ', err),
@@ -70,8 +70,33 @@ export class NavTopComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getUserRole();
+    this.getUser();
     this.getLikedStories();
   }
 
 }
+
+  /*
+  // method to subscribe to who is the logged in user
+  subscribeUser(): void {
+    this.subscriptions$.push(
+
+      this.authentication.user$
+          .subscribe(
+            (response: User_) => {
+              this.user = response;
+              console.log('55 admin subscribeUser()', this.authentication.isLoggedIn, this.authentication.isAdmin)
+            },
+            (error: any) => console.log('subscribeUser() fails: ', error),
+            () => console.log('subscribeUser() completed')
+          )
+    )
+  }
+
+  ngOnInit(): void {
+    // this.displayUsers();
+    // console.log('65 admin subscribeUser()', this.authentication.isLoggedIn, this.authentication.isAdmin)
+    // this.subscribeUser();
+    // console.log('67 admin subscribeUser()', this.authentication.isLoggedIn, this.authentication.isAdmin)
+
+   } */

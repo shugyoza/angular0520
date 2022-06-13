@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { SettingsComponent } from './features/settings/settings.component';
 import { AdminComponent } from './features/admin/admin.component';
 import { LoginComponent } from './features/login/login.component';
 import { NewsFeedComponent } from './features/news-feed/news-feed.component';
@@ -23,13 +24,19 @@ const routes: Routes = [
     path: 'profile',
     component: ProfileComponent,
     loadChildren: () => import('./features/profile/profile.module').then((m) => m.ProfileModule),
-    canActivate: [CanActivateGuardService]
+    canActivate: [ CanActivateGuardService ]
   },
   {
     path: 'admin',
     component: AdminComponent,
     loadChildren: () => import('./features/admin/admin.module').then((m) => m.AdminModule),
-    canActivate: [CanActivateGuardService, CanLoadGuardService]
+    canLoad: [CanLoadGuardService]
+  },
+  {
+    path: 'settings',
+    component: SettingsComponent,
+    loadChildren: () => import('./features/settings/settings.module').then((m) => m.SettingsModule),
+    canActivate: [CanActivateGuardService]
   },
   {
     path: 'login',
