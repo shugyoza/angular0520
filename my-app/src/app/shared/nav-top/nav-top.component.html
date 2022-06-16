@@ -1,4 +1,6 @@
-<mat-toolbar color="primary">
+<mat-toolbar
+    *ngIf="user"
+    color="primary">
 
     <button mat-button
         *ngIf="user">
@@ -26,25 +28,25 @@
         Settings
     </button>
 
-    <button mat-button
-        (click)="onAdmin()"
-        class="btn"
-        id="btn-admin" >
-        Admin
-    </button>
-
-    <app-liked-stories
-        *ngIf="likedStories">
-    </app-liked-stories>
-
-<!-- this is the proper button for admin -->
     <!-- <button mat-button
-        *ngIf="user && user.userRole === 'admin'"
         (click)="onAdmin()"
         class="btn"
         id="btn-admin" >
         Admin
     </button> -->
+
+    <!-- <app-liked-stories
+        *ngIf="likedStories">
+    </app-liked-stories> -->
+
+<!-- this is the proper button for admin -->
+    <button mat-button
+        *ngIf="user && user.userRole === 'admin'"
+        (click)="onAdmin()"
+        class="btn"
+        id="btn-admin" >
+        Admin
+    </button>
 
     <!-- <app-liked-stories
         *ngIf="likedStories"

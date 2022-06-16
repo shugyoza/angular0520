@@ -7,8 +7,11 @@ import { Observable
   , Subject } from 'rxjs';
 import jwtDecode from 'jwt-decode';
 
+// import { CookieService } from 'src/app/core/services/cookie/cookie.service';
+import { LocalStorageService } from 'src/app/core/services/localStorage/local-storage.service';
 import { User_ } from '../../../shared/models/User';
 import { url } from '../../../shared/utils/url';
+import { setExpireInUnix } from '../../../shared/utils/functions';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +27,10 @@ export class AuthenticationService {
 
   constructor(
       private http: HttpClient
-    , private _router: Router) { }
+    , private _router: Router
+//    , private cookie: CookieService
+    , public localStorage: LocalStorageService
+    ) { }
 
   // method to check if a given _id is valid of a User_, returns a User_ observable
   checkID(userID: string): Observable<User_> {
@@ -59,10 +65,22 @@ export class AuthenticationService {
           this.user$.next(decoded);
           this.isLoggedIn = true;
           this.isLoggedIn$.next(true);  // do we need observable or not as our tracker?
+
+          // changed cookie into localStorage
+//          this.cookie.value = this.cookie.createToken('token', jwtToken, 24*60*60); // 24hrsX60minsX60secs
+//          console.log('fetchUser(), this.cookie.value: ', this.cookie.value)
+
+          const expiration = setExpireInUnix(24 * 60 * 60);
+          this.localStorage.log = {
+            token: jwtToken,
+            expire: `${expiration}` // for more security this can be hashed
+          }
+
           if (response.userRole === 'admin') {
             this.isAdmin = true;
             this.isAdmin$.next(true); // do we need observable or not as our tracker?
             }
+          console.log('log created: ', this.localStorage.log);
           this._router.navigate(['feed']);
         },
         error: (err: Error) => console.error('fetchUser() fails: ', err),

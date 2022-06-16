@@ -16,7 +16,7 @@ export class PreloadingStrategyService implements PreloadingStrategy {
       let delay: number = route.data['delay']
       console.log('preload called on', route.path, `with `, delay, 'ms. delay');
       return timer(delay).pipe(
-        mergeMap(_ => {
+        flatMap(_ => {
           console.log('Loading now ', route.path);
           return loadMe();
         }));

@@ -1,3 +1,23 @@
+<mat-list
+  class="list-liked-stories"
+  role="list"
+  *ngIf="likedStories">
+
+  <button
+    mat-button>
+    Liked: {{likedStories.length}} Stories
+  </button>
+
+  <mat-list-item
+    *ngFor="let story of likedStories"
+    role="listitem"
+    [hidden]="true"
+    (click)="show()">
+    {{story.newsId}}
+  </mat-list-item>
+
+</mat-list>
+<!--
 <mat-accordion class="list-liked-stories">
 
   <mat-expansion-panel
@@ -22,7 +42,7 @@
   </mat-expansion-panel>
 
 </mat-accordion>
-
+ -->
 <!--
 <div *ngIf="likedStories?.length">
   <p [story]="story"></p>

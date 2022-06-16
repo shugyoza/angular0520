@@ -30,6 +30,7 @@ export class LikedStoriesComponent implements OnInit, OnDestroy {
   @Input() stories: News[] = [];
   user!: User;
   subscriptions$: any = [];
+  hidden: boolean = true;
 
   constructor(
       private userService: UserService
@@ -51,6 +52,10 @@ export class LikedStoriesComponent implements OnInit, OnDestroy {
       }
       this.subscriptions$.push(this.userService.likedStories$.subscribe(observer));
 
+  }
+
+  show(): boolean {
+    return this.hidden = !this.hidden;
   }
 }
 

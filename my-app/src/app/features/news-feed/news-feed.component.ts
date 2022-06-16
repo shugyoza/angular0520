@@ -44,6 +44,7 @@ export class NewsFeedComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    console.log('init');
     // fetch data list from back end
     this.storiesService.fetchStories();
     // this subscription will automatically update the DOM when Subject got updated (next-ed)
@@ -53,6 +54,7 @@ export class NewsFeedComponent implements OnInit, OnDestroy {
   ngOnChanges(): void {  }
 
   ngOnDestroy(): void {
+    console.log('destroyed')
     this.subscriptions$.forEach((subscription$) => subscription$.unsubscribe());
   }
 

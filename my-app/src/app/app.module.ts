@@ -20,6 +20,8 @@ import { AuthenticationService } from './core/services/authentication/authentica
 import { CanActivateGuardService } from './core/services/guards/can-activate-guard/can-activate-guard.service';
 import { CanLoadGuardService } from './core/services/guards/can-load-guard/can-load-guard.service';
 import { PreloadingStrategyService } from './core/services/preloading-strategy/preloading-strategy.service';
+import { CookieService } from './core/services/cookie/cookie.service';
+import { LocalStorageService } from './core/services/localStorage/local-storage.service';
 // import { ColorRandomizerDirective } from './shared/color-randomizer.directive';
 
 @NgModule({
@@ -49,6 +51,8 @@ import { PreloadingStrategyService } from './core/services/preloading-strategy/p
     , CanActivateGuardService
     , CanLoadGuardService
     , PreloadingStrategyService
+    , CookieService // working but not used. Problem: After 2 minutes idle, On refresh cookies got destroyed and cannot be referred to in dealing with the route guards and authentication
+    , LocalStorageService
   ],
   bootstrap: [AppComponent]
 })
@@ -74,3 +78,6 @@ replaced with sub router
   ],
 
 */
+
+// Lazy Loading ref.: https://stackoverflow.com/questions/45975675/lazy-loading-browsermodule-has-already-been-loaded
+// // https://dev.to/sanketmaru/import-once-browser-module-1pie

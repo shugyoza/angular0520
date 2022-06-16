@@ -5,6 +5,7 @@ import { User_ } from '../../shared/models/User';
 import { AuthenticationService } from '../../core/services/authentication/authentication.service';
 import { UserService } from '../../core/services/user/user.service';
 // import { validateCredential, AsyncValidatorFn } from '../../core/services/authentication/credential.validator';
+import { CookieService } from 'src/app/core/services/cookie/cookie.service';
 
 import { url } from '../../shared/utils/url';
 import { form } from 'src/app/shared/utils/form';
@@ -27,6 +28,7 @@ export class LoginComponent implements OnInit {
   subscriptions$: any[] = []; // array to store Observables
 
   constructor(
+    private cookieService: CookieService,
     private authentication: AuthenticationService,
     private userService: UserService // we might not need this. last mission is to redirect to the corresponding page.
     ) { }
@@ -78,7 +80,9 @@ export class LoginComponent implements OnInit {
     )
   }
 
-  ngOnInit(): void { }
+
+  ngOnInit(): void {
+  }
 
   ngOnChanges(): void{  }
 

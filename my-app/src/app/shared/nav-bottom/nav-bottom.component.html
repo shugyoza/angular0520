@@ -1,5 +1,7 @@
 <p>
-  <mat-toolbar color="primary">
+  <mat-toolbar
+    *ngIf="user"
+    color="primary">
 
     <button mat-button
       (click)="onProfile()"

@@ -11,7 +11,7 @@
 
         <img
           class="logo"
-          width=200
+          width=100
           src={{logo}}
           alt="logo" />
 
@@ -33,18 +33,18 @@
             placeholder={{email.placeholder}}
             formControlName={{email.id}} />
 
-          <mat-hint>Please type your email</mat-hint>
+          <mat-hint>Type your email</mat-hint>
 
           <!-- Pop up error message for invalid input -->
           <mat-error
             *ngIf="inputForm.get(email.id)?.hasError(email.id) &&
             !inputForm.get(email.id)?.hasError('required')">
-            Email is required, e.g. yourName@email.com
+            Required
           </mat-error>
 
           <mat-error
             *ngIf="inputForm.get(email.id)?.hasError('required')">
-            Invalid email input
+            Invalid input
           </mat-error>
 
         </mat-form-field>
@@ -78,7 +78,7 @@
                   </mat-icon>
               </button>
 
-          <mat-hint>Please type your password</mat-hint>
+          <mat-hint>Type your password</mat-hint>
 
           <!-- Pop up error message for invalid input -->
           <mat-error

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
+import { devSubscribeTo, subscribeTo } from 'src/app/shared/utils/functions';
 
 @Component({
   selector: 'app-settings',
@@ -8,12 +10,11 @@ import { ActivatedRoute } from '@angular/router';
 })
 
 export class SettingsComponent implements OnInit {
-
   newsFeedPath = '/feed';
   profilePath = '/profile';
   settingsPath = '/settings';
-  
-  constructor() { }
+
+  constructor( private authentication: AuthenticationService) { }
 
   ngOnInit(): void {
   }
