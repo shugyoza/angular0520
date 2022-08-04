@@ -90,3 +90,27 @@ export function subscribeTo(
       undefined,
     )
   } */
+
+
+
+export const newObserver: Function = (next: Function, error: Function, complete: Function | null) => {
+  return { next, error, complete };
+}
+
+export const newSubscription: Function = (observable: any, observer: any, subscriptions$: any[] | null) => {
+  const subscription$ = observable.subscribe(observer);
+  if (subscriptions$) subscriptions$.push(subscription$);
+  return subscription$;
+}
+
+export const log: Function = (message: string, ...args: any) => {
+  const date: Date = new Date()
+  , logTime: string = `${date.getUTCMinutes()}:${date.getUTCSeconds()}:${date.getUTCMilliseconds()}`;
+  console.log(`${logTime}.${message}`, ...args);
+}
+
+export const logError: Function = (message: string, err: Error, ...args: any) => {
+  const date: Date = new Date()
+  , logTime: string = `${date.getUTCMinutes()}:${date.getUTCSeconds()}:${date.getUTCMilliseconds()}`;
+  console.error(`${logTime}.${message} failed :`, ...args);
+}

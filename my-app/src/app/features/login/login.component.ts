@@ -1,5 +1,5 @@
-import { Component, OnInit, OnChanges, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked} from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Component, Input, OnInit, OnChanges, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked} from '@angular/core';
+import { FormGroup, FormControl, Validators, FormControlName, NgModel } from '@angular/forms';
 
 import { User_ } from '../../shared/models/User';
 import { AuthenticationService } from '../../core/services/authentication/authentication.service';
@@ -9,6 +9,7 @@ import { CookieService } from 'src/app/core/services/cookie/cookie.service';
 
 import { url } from '../../shared/utils/url';
 import { form } from 'src/app/shared/utils/form';
+import { newObserver, newSubscription, log } from '../../shared/utils/functions';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,7 @@ import { form } from 'src/app/shared/utils/form';
   styleUrls: ['./login.component.sass']
 })
 
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnChanges, DoCheck, AfterContentInit, AfterViewInit {
   email = form.fields.email;
   password = form.fields.password;
   newsFeedPath = url.client.feed;
@@ -44,7 +45,7 @@ export class LoginComponent implements OnInit {
       [ Validators.required,
         Validators.minLength(6) ]
       )
-  })
+  });
 
   // method to subscribe to who is the logged in user
   subscribeUser(): void {
@@ -82,25 +83,31 @@ export class LoginComponent implements OnInit {
 
 
   ngOnInit(): void {
+    let observeUser = newObserver(() => log('test next'), () => log('test err'), () => log('test complete'));
+    let subscribeUser = newSubscription(this.authentication.user$, observeUser, this.subscriptions$)
   }
 
-  ngOnChanges(): void{  }
+  ngOnChanges(): void{
+    // console.log('onChange: ', this.inputForm.value.email, this.inputForm.value.password)
+  }
 
   ngOnDestroy(): void {
-    this.subscriptions$.forEach((subscription$) => subscription$.unsubscribe());
+    // this.subscriptions$.forEach((subscription$) => subscription$.unsubscribe());
   }
 
-  ngDoCheck() {  }
+  ngDoCheck() {
+    // console.log('doCheck: ', this.inputForm.value.email['valid'], this.inputForm.value.password['pristine'])
+   }
   ngAfterContentInit() {
-    // console.log('ngAfterContentInit')
+    console.log('ngAfterContentInit', this.inputForm.value.email, this.inputForm.value.password)
   }
   ngAfterContentChecked() {
-    // console.log('ngAfterContentChecked')
+    // console.log('ngAfterContentChecked', this.inputForm.value.email, this.inputForm.value.password)
   }
   ngAfterViewInit() {
-    // console.log('ngAfterViewInit')
+    console.log('ngAfterViewInit', this.inputForm.value.email, this.inputForm.value.password)
   }
   ngAfterViewChecked() {
-    // console.log('ngAfterViewChecked')
+    // console.log('ngAfterViewChecked', this.inputForm.value.email, this.inputForm.value.password)
   }
 }
